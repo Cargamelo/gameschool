@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Road Safety Hero</title>
+<style>
+:root{--bg:#dff3ff;--card:#fff;--ink:#1d2b4f;--sub:#5a6785;--ok:#2e9e4f;--bad:#e53935;--b:#1e63c8;--y:#ffd93b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14192b;--card:#202844;--ink:#f3f5ff;--sub:#b5bedb}}
+:root[data-theme="dark"]{--bg:#14192b;--card:#202844;--ink:#f3f5ff;--sub:#b5bedb}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Baloo 2","Comic Sans MS","Trebuchet MS",sans-serif;font-size:19px;line-height:1.25}
+.w{max-width:780px;margin:0 auto;padding:12px}
+.lv{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}
+.lv span{background:var(--card);border-radius:99px;padding:3px 14px;font-weight:800;font-size:16px;opacity:.6}.lv .on{opacity:1;background:var(--y);color:#222}
+.card{background:var(--card);border-radius:26px;padding:16px;box-shadow:0 6px 0 rgba(0,0,0,.15);text-align:center;margin-top:10px}
+h1{margin:4px 0;font-size:clamp(32px,8vw,56px);color:var(--b)}
+.q{font-size:clamp(21px,4.5vw,28px);font-weight:800;margin:2px 0}.es{color:var(--sub);font-size:15px;margin:2px 0 8px}
+button{font:inherit;font-weight:800;font-size:20px;color:var(--ink);background:var(--card);border:4px solid var(--b);border-radius:18px;padding:10px 14px;cursor:pointer;min-height:56px;margin:4px}
+button:hover:not(:disabled){background:var(--y);color:#222}button:disabled{opacity:.5}
+.go{background:var(--b);color:#fff}.fb{min-height:30px;font-weight:800;font-size:20px;margin:6px 0}
+canvas{width:100%;max-width:700px;border-radius:16px;border:4px solid var(--ink);background:#fff}
+.tray{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin:8px 0;min-height:130px}
+.s{zoom:.72;border:6px solid transparent;border-radius:20px;padding:6px;cursor:pointer}.s.sel{border-color:var(--y);background:rgba(255,217,59,.3)}
+.shake{animation:sh .3s}@keyframes sh{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.tri{width:120px;height:106px;background:#e53935;clip-path:polygon(50% 0,100% 100%,0 100%);display:flex;align-items:flex-end;justify-content:center;padding-bottom:9px}
+.tri b{width:80px;height:68px;background:#fff;clip-path:polygon(50% 0,100% 100%,0 100%);display:flex;align-items:flex-end;justify-content:center;font-size:34px}
+.ci{width:116px;height:116px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:58px;position:relative}
+.bl{background:#1e63c8;color:#fff;font-size:76px}.rd{background:#fff;border:13px solid #e53935}
+.rd:after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,transparent 46%,#e53935 46%,#e53935 54%,transparent 54%)}
+.item{font-size:80px;line-height:1.1}.stars{font-size:48px;letter-spacing:4px}
+.cert{border:10px double var(--b);border-radius:20px;padding:18px;margin:10px 0}
+input{font:inherit;font-size:22px;padding:8px 14px;border:4px solid var(--b);border-radius:14px;width:80%;text-align:center;background:var(--card);color:var(--ink)}
+@media print{.noprint{display:none!important}body{background:#fff;color:#000}.card{box-shadow:none}}
+</style></head><body><div class="w"><div id="hud" class="noprint"></div><div id="main"></div></div>
+<script>
+const $=s=>document.querySelector(s),main=$('#main');
+const stars=[0,0,0],sh=a=>a.map(v=>[Math.random(),v]).sort((x,y)=>x[0]-y[0]).map(x=>x[1]);
+const st=m=>m==0?3:m<=2?2:1;
+const hud=l=>$('#hud').innerHTML=`<div class="lv">${['Cross','Signs','Eco'].map((t,i)=>`<span class="${i+1==l?'on':''}">${i+1}. ${t} ${'⭐'.repeat(stars[i])}</span>`).join('')}</div>`;
+function start(){hud(0);main.innerHTML=`<div class="card"><h1>🚦 Road Safety Hero</h1><div class="q">Complete 3 missions and get your certificate!</div><div class="es">¡Completa 3 misiones y consigue tu diploma!</div>
+<p style="text-align:left;max-width:520px;margin:10px auto">🚸 <b>Mission 1:</b> cross the street safely<br>🪧 <b>Mission 2:</b> sort the road signs<br>🌍 <b>Mission 3:</b> sustainable transport</p><button class="go" onclick="L1()">Start! ▶️</button></div>`}
+function nextBtn(f,t){return `<button class="go" onclick="${f}()">${t} ➡️</button>`}
+/* ---------- MISSION 1 ---------- */
+function L1(){hud(1);
+main.innerHTML=`<div class="card"><div class="q">🚸 Mission 1: Cross the street safely</div><div class="es">Cruza 2 veces. Espera al hombre verde, mira a la izquierda, luego a la derecha, ¡y cruza!</div>
+<canvas id="cv" width="700" height="380"></canvas><div class="fb" id="fb">Wait for the green man 🟢</div><div id="info" class="es">⬅️ ⬜  ➡️ ⬜</div>
+<div id="ctl"><button id="bl">⬅️ Look LEFT</button><button id="br">➡️ Look RIGHT</button><button id="bc" class="go">🚶 CROSS!</button></div></div>`;
+const g=$('#cv').getContext('2d'),W=700,ZL=300,ZR=400,cols=['#e53935','#1e63c8','#fdd835','#43a047','#ff8a3d','#8e44ad'];
+let cars=[],phase='red',pt=0,kid={y:330,m:0},done=0,mist=0,lL=0,lR=0,an=null,run=1,last=performance.now(),sp=[20,60];
+const say=t=>$('#fb').textContent=t,chk=()=>$('#info').textContent='⬅️ '+(lL?'✅':'⬜')+'   ➡️ '+(lR?'✅':'⬜');
+const inZ=c=>c.x+70>ZL&&c.x<ZR;
+$('#bl').onclick=()=>{if(kid.m)return;lL=1;an={d:0,t:50};chk()};
+$('#br').onclick=()=>{if(kid.m)return;if(!lL){say('LEFT first, then RIGHT! 👀');mist++;return}lR=1;an={d:1,t:50};chk()};
+$('#bc').onclick=()=>{if(kid.m||done>=2)return;
+ if(!lL||!lR){say('Look LEFT and then RIGHT first! 👀');mist++;return}
+ if(phase!='green'){say('The man is RED 🔴 Wait!');mist++;return}
+ kid.m=1;say('Crossing… 🚶')};
+function step(dt){pt+=dt/60;
+ if(phase=='red'&&pt>4.5)phase='wait';
+ if(phase=='wait'&&!cars.some(inZ)){phase='green';pt=0;say('Green man! 🟢 Look LEFT, then RIGHT, then CROSS!')}
+ if(phase=='green'&&pt>9&&!kid.m){phase='red';pt=0;say('Wait for the green man 🟢')}
+ for(let l=0;l<2;l++){sp[l]-=dt;if(sp[l]<=0){const sx=l?W+10:-80;if(!cars.some(c=>c.l==l&&Math.abs(c.x-sx)<120)){cars.push({l,x:sx,s:2+Math.random()*1.2,c:cols[Math.random()*6|0]});sp[l]=70+Math.random()*90}else sp[l]=10}}
+ for(let l=0;l<2;l++){const d=l?-1:1,a=cars.filter(c=>c.l==l).sort((p,q)=>d>0?q.x-p.x:p.x-q.x);
+  a.forEach((c,i)=>{const f=d>0?c.x+70:c.x;let al=1e9;const h=a[i-1];
+   if(h){const b=d>0?h.x:h.x+70;al=d>0?b-18-f:f-(b+18)}
+   if(phase!='red'){if(d>0&&f<=ZL-1)al=Math.min(al,ZL-1-f);if(d<0&&f>=ZR+1)al=Math.min(al,f-ZR-1)}
+   c.x+=d*Math.max(0,Math.min(c.s*dt,al))})}
+ cars=cars.filter(c=>c.x>-120&&c.x<W+120);
+ if(kid.m){kid.y-=2.2*dt;if(kid.y<=40){kid.m=0;kid.y=40;done++;say('✅ Well done! You crossed safely!');
+  if(done>=2){run=0;stars[0]=st(mist);hud(1);$('#ctl').innerHTML=nextBtn('L2','Mission 2');say('🎉 Mission complete! '+'⭐'.repeat(stars[0]))}
+  else setTimeout(()=>{kid.y=330;lL=lR=0;chk();say('Again! Wait for the green man 🟢')},1500)}}}
+function person(x,y){g.fillStyle='#ff8a3d';g.fillRect(x-17,y-28,9,18);g.fillStyle='#3b4a8a';g.fillRect(x-7,y-8,6,10);g.fillRect(x+1,y-8,6,10);
+ g.fillStyle='#1e63c8';g.beginPath();g.roundRect(x-9,y-30,18,24,5);g.fill();g.fillStyle='#f6c9a0';g.beginPath();g.arc(x,y-38,10,0,7);g.fill();g.fillStyle='#5a3a1e';g.beginPath();g.arc(x,y-41,10,3.14,6.28);g.fill()}
+function draw(dt){g.fillStyle='#d5d8e0';g.fillRect(0,0,W,380);g.fillStyle='#565c6c';g.fillRect(0,70,W,220);
+ g.strokeStyle='#ffd93b';g.lineWidth=4;g.setLineDash([26,20]);g.beginPath();g.moveTo(0,180);g.lineTo(W,180);g.stroke();g.setLineDash([]);
+ g.fillStyle='#fff';for(let i=0;i<7;i++)g.fillRect(ZL+4+i*14.5,72,8,216);
+ cars.forEach(c=>{const y=c.l?105:215;g.fillStyle=c.c;g.beginPath();g.roundRect(c.x,y,70,40,10);g.fill();g.fillStyle='#bfe9ff';g.fillRect(c.x+(c.l?14:24),y+6,32,28);g.fillStyle='#ffe14d';g.fillRect(c.l?c.x:c.x+66,y+6,4,8);g.fillRect(c.l?c.x:c.x+66,y+26,4,8);g.fillStyle='#222';g.fillRect(c.x+8,y-3,14,5);g.fillRect(c.x+48,y-3,14,5);g.fillRect(c.x+8,y+38,14,5);g.fillRect(c.x+48,y+38,14,5)});
+ g.fillStyle='#2b2b2b';g.beginPath();g.roundRect(440,296,44,76,10);g.fill();g.font='20px sans-serif';g.textAlign='center';
+ const gr=phase=='green';g.fillStyle=gr?'#444':'#e53935';g.beginPath();g.arc(462,320,15,0,7);g.fill();g.fillStyle=gr?'#2ee59d':'#444';g.beginPath();g.arc(462,352,15,0,7);g.fill();
+ g.fillStyle='#fff';g.fillText(gr?'':'✋',462,327);g.fillText(gr?'🚶':'',462,359);
+ person(350,kid.y);
+ if(an&&an.t>0){g.font='30px sans-serif';g.fillText(an.d?'➡️':'⬅️',350+(an.d?34:-34),kid.y-36);g.fillText('👀',350,kid.y-64);an.t-=dt}}
+function frame(n){if(!run)return;const dt=Math.min((n-last)/16.7,3);last=n;step(dt);draw(dt);requestAnimationFrame(frame)}
+requestAnimationFrame(frame)}
+/* ---------- MISSION 2 ---------- */
+const sg=(t,e)=>t=='w'?`<div class="tri"><b>${e}</b></div>`:t=='m'?`<div class="ci bl">${e}</div>`:`<div class="ci rd">${e}</div>`;
+function L2(){hud(2);let S=sh([['w','🏃'],['w','🚧'],['m','↻'],['m','⬆️'],['p','🚲'],['p','🚗']]),sel=-1,mist=0;
+main.innerHTML=`<div class="card"><div class="q">🪧 Mission 2: Sort the road signs</div><div class="es">Toca una señal y luego toca su caja. (Tap a sign, then tap its box.)</div><div class="tray" id="tr"></div><div class="fb" id="fb">Which box?</div>
+<div><button data-t="w">⚠️ WARNING<br><small>red triangle</small></button><button data-t="m">✅ MANDATORY<br><small>blue circle</small></button><button data-t="p">🚫 PROHIBITION<br><small>red circle</small></button></div><div id="nx"></div></div>`;
+const draw=()=>{$('#tr').innerHTML=S.map((s,i)=>`<div class="s ${i==sel?'sel':''}" data-i="${i}">${sg(...s)}</div>`).join('');$('#tr').querySelectorAll('.s').forEach(e=>e.onclick=()=>{sel=+e.dataset.i;draw()})};draw();
+main.querySelectorAll('button[data-t]').forEach(b=>b.onclick=()=>{if(sel<0){$('#fb').textContent='Tap a sign first 👆';return}
+ if(S[sel][0]==b.dataset.t){S.splice(sel,1);sel=-1;$('#fb').textContent='🎉 Correct!';draw();
+  if(!S.length){stars[1]=st(mist);hud(2);$('#fb').textContent='🎉 Mission complete! '+'⭐'.repeat(stars[1]);$('#nx').innerHTML=nextBtn('L3','Mission 3')}}
+ else{mist++;$('#fb').textContent='😮 Try again! Look at the SHAPE and COLOUR.';b.classList.add('shake');setTimeout(()=>b.classList.remove('shake'),400)}})}
+/* ---------- MISSION 3 ---------- */
+function L3(){hud(3);const I=sh([['🚲','cycling',1],['🚶','walking',1],['🚌','public transport',1],['🚗🚗','carsharing (friends together)',1],['⚡🚙','electric vehicle',1],['✈️','private plane',0],['🚛','old diesel lorry',0],['🚗','car with only 1 person',0]]);let i=0,mist=0,lock=0;
+const show=()=>{lock=0;const t=I[i];main.innerHTML=`<div class="card"><div class="q">🌍 Mission 3: Sustainable transport</div><div class="es">Sustainable = <b>low impact</b> on the environment. (Sostenible = bajo impacto ambiental.) ${i+1}/${I.length}</div>
+<div class="item">${t[0]}</div><div class="q">${t[1]}</div><div class="fb" id="fb">Low or high impact?</div>
+<button id="lo" style="border-color:#2e9e4f">🌍 LOW impact<br><small>sustainable</small></button><button id="hi" style="border-color:#e53935">🏭 HIGH impact<br><small>not sustainable</small></button></div>`;
+$('#lo').onclick=()=>pick(1);$('#hi').onclick=()=>pick(0)};
+const pick=v=>{if(lock)return;lock=1;const ok=v==I[i][2];if(!ok)mist++;$('#fb').textContent=ok?'🎉 Correct!':'😮 Not quite. It is '+(I[i][2]?'LOW':'HIGH')+' impact.';
+ setTimeout(()=>{i++;i<I.length?show():end(mist)},1300)};show()}
+function end(m){stars[2]=st(m);hud(3);const T=stars.reduce((a,b)=>a+b,0);
+main.innerHTML=`<div class="card"><div class="cert"><div class="stars">🚦🚸🌍</div><h1>Road Safety Hero</h1><div class="es">Certificate · Diploma</div><div class="q">This certificate is for</div><input id="nm" class="noprint" placeholder="Write your name ✏️"><div class="q" id="nm2" style="font-size:36px;min-height:46px"></div><div class="stars">${'⭐'.repeat(T)}</div><div class="es">${T} / 9 stars</div></div>
+<button class="go noprint" onclick="window.print()">🖨️ Print</button><button class="noprint" onclick="stars.fill(0);start()">🔄 Play again</button></div>`;
+$('#nm').oninput=e=>$('#nm2').textContent=e.target.value}
+start();
+</script></body></html>
