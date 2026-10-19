@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Town Explorer</title>
+<style>
+:root{--bg:#e6f6ff;--card:#fff;--ink:#1d2b4f;--sub:#5a6785;--ok:#2e9e4f;--bad:#e53935;--b:#1e63c8;--y:#ffd93b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14192b;--card:#202844;--ink:#f3f5ff;--sub:#b5bedb}}
+:root[data-theme="dark"]{--bg:#14192b;--card:#202844;--ink:#f3f5ff;--sub:#b5bedb}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Baloo 2","Comic Sans MS","Trebuchet MS",sans-serif;font-size:19px;line-height:1.2}
+.w{max-width:820px;margin:0 auto;padding:12px}
+h1{margin:4px 0;text-align:center;font-size:clamp(30px,7vw,48px);color:var(--b)}
+.tabs{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}.tabs span{background:var(--card);border-radius:99px;padding:3px 14px;font-weight:800;font-size:16px;opacity:.55}.tabs .on{opacity:1;background:var(--y);color:#222}
+.card{background:var(--card);border-radius:24px;padding:14px;text-align:center;box-shadow:0 6px 0 rgba(0,0,0,.15);margin-top:10px}
+.clue{display:flex;align-items:center;gap:10px;justify-content:center;flex-wrap:wrap}
+.q{font-size:clamp(21px,4.6vw,30px);font-weight:800}.es{color:var(--sub);font-size:15px}
+button{font:inherit;font-weight:800;color:var(--ink);background:var(--card);border:4px solid var(--b);border-radius:16px;padding:8px 14px;cursor:pointer;min-height:48px}
+button:hover:not(:disabled){background:var(--y);color:#222}.go{background:var(--b);color:#fff;font-size:22px;padding:12px 28px}
+svg{width:100%;height:auto;display:block;border-radius:16px;border:4px solid var(--ink)}
+.play .hs{cursor:pointer}.play .hs:hover{filter:brightness(1.12)}
+.glow{animation:gl .7s infinite alternate}@keyframes gl{to{filter:drop-shadow(0 0 10px #ffd93b) brightness(1.25)}}
+.shake{animation:sh .3s}@keyframes sh{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.fb{min-height:30px;font-weight:800;font-size:20px;margin:8px 0 2px}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}.pair button{padding:4px;border-radius:20px}.pair svg{border:0;pointer-events:none}
+.pair b{display:block;font-size:22px;padding:4px}
+.tm{height:16px;background:rgba(0,0,0,.12);border-radius:99px;overflow:hidden;margin:6px 0}.tm i{display:block;height:100%;width:100%;background:var(--ok)}
+.stars{font-size:50px;letter-spacing:5px}
+</style></head><body><div class="w"><h1>🧭 Town Explorer</h1><div id="hud" class="tabs"></div><div id="m"></div></div>
+<script>
+const $=s=>document.querySelector(s),M=$('#m');
+const sh=a=>a.map(v=>[Math.random(),v]).sort((x,y)=>x[0]-y[0]).map(x=>x[1]);
+const S='stroke="#1d2b4f" stroke-width="2.5" stroke-linejoin="round"';
+const R=(x,y,w,h,f,r=0)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${r}" fill="${f}" ${S}/>`;
+const hs=(i,c)=>`<g class="hs" data-h="${i}">${c}</g>`;
+const tx=(x,y,t,s=14,f='#1d2b4f')=>`<text x="${x}" y="${y}" font-size="${s}" font-weight="800" fill="${f}" text-anchor="middle" font-family="sans-serif">${t}</text>`;
+const house=(x,y,w,h,roof,sh2)=>R(x,y,w,h,'#ffe3b0')+`<polygon points="${x-5},${y} ${x+w/2},${y-h*.6} ${x+w+5},${y}" fill="${roof}" ${S}/>`+R(x+w*.12,y+h*.3,w*.26,h*.3,'#bfe9ff')+R(x+w*.6,y+h*.4,w*.26,h*.6,'#a0522d')+(sh2?R(x,y+h*.1,w,10,'#e53935'):'');
+const tree=(x,y,r=16)=>`<rect x="${x-3}" y="${y}" width="6" height="16" fill="#8b5a2b"/><circle cx="${x}" cy="${y}" r="${r}" fill="#2e9e4f" ${S}/>`;
+const car=(x,y,c)=>R(x,y,46,20,c,7)+R(x+10,y-10,26,12,'#bfe9ff',4)+`<circle cx="${x+10}" cy="${y+21}" r="6" fill="#222"/><circle cx="${x+36}" cy="${y+21}" r="6" fill="#222"/>`;
+const bus=(x,y,w=80)=>R(x,y,w,32,'#43a047',7)+[0,1,2,3].map(i=>R(x+8+i*(w-14)/4,y+6,(w-24)/4,11,'#bfe9ff')).join('')+`<circle cx="${x+16}" cy="${y+34}" r="7" fill="#222"/><circle cx="${x+w-16}" cy="${y+34}" r="7" fill="#222"/>`;
+function village(){return `<svg viewBox="0 0 600 380"><rect width="600" height="380" fill="#cdeeff"/><circle cx="545" cy="48" r="30" fill="#ffd93b"/><path d="M0 150 Q150 95 300 140 T600 120 V380 H0Z" fill="#8fd36b"/>`+
+hs(4,`<polygon points="360,135 590,115 590,205 360,222" fill="#d9a35b" ${S}/>`+[0,1,2,3].map(i=>`<line x1="360" y1="${150+i*20}" x2="590" y2="${130+i*20}" stroke="#a8742f" stroke-width="3"/>`).join('')+R(450,150,52,26,'#e53935',6)+R(486,136,22,20,'#e53935',4)+`<circle cx="462" cy="180" r="14" fill="#222"/><circle cx="500" cy="178" r="9" fill="#222"/>`)+
+`<path d="M-10 335 Q250 270 610 322" stroke="#8e94a3" stroke-width="32" fill="none"/>`+hs(1,`<path d="M-10 335 Q250 270 610 322" stroke="#8e94a3" stroke-width="32" fill="none"/><path d="M-10 335 Q250 270 610 322" stroke="#fff" stroke-width="3" stroke-dasharray="14 12" fill="none"/>`)+
+R(30,150,40,76,'#f4d9b0')+`<polygon points="24,150 50,100 76,150" fill="#c0392b" ${S}/>`+
+hs(2,house(15,240,64,48,'#e67e22')+house(95,246,58,44,'#c0392b')+house(168,238,60,50,'#8e44ad'))+
+hs(5,R(250,220,70,58,'#fff')+`<polygon points="245,220 285,190 325,220" fill="#90a4ae" ${S}/>`+R(278,236,14,36,'#e53935')+R(268,246,34,14,'#e53935')+tx(285,214,'HEALTH',11))+
+hs(3,house(340,240,70,48,'#1e63c8',1)+tx(375,276,'SHOP',13))+
+hs(6,R(432,224,6,52,'#6b7285')+R(420,214,30,16,'#1e63c8')+tx(435,226,'BUS',9,'#fff')+bus(445,268,74))+
+hs(7,car(235,290,'#fdd835'))+tree(100,185)+tree(340,185,14)+tree(555,255,18)+tree(20,320,18)+`</svg>`}
+function city(){return `<svg viewBox="0 0 600 380"><rect width="600" height="380" fill="#cdeeff"/><circle cx="560" cy="40" r="26" fill="#ffd93b"/>`+
+R(525,120,66,142,'#ce93d8')+
+hs(2,R(20,90,50,172,'#b39ddb')+R(80,50,56,212,'#ff80ab')+R(145,110,46,152,'#80d8ff')+[[30,100,172],[90,60,212],[154,120,152]].map(([x,y,h])=>{let s='';for(let yy=y+10;yy<y+h-8;yy+=16)for(let xx=x+6;xx<x+(x==90?46:36);xx+=13)s+=`<rect x="${xx}" y="${yy}" width="7" height="9" fill="#fff" opacity=".85"/>`;return s}).join(''))+
+hs(3,R(205,170,135,92,'#ffcc80')+R(215,182,115,26,'#fff')+tx(272,201,'SHOPPING CENTRE',11)+R(215,218,115,32,'#a5d6a7')+tx(272,239,'SUPERMARKET',12))+
+hs(4,R(352,78,72,184,'#80cbc4')+tx(388,120,'💼',30)+tx(388,150,'OFFICES',12)+[0,1,2,3,4].map(i=>R(364,165+i*18,12,10,'#fff')+R(396,165+i*18,12,10,'#fff')).join(''))+
+hs(5,R(436,150,80,112,'#fff')+R(466,165,22,40,'#e53935')+R(457,174,40,22,'#e53935')+tx(476,225,'HOSPITAL',12))+
+R(0,258,600,122,'#565c6c')+hs(1,R(0,258,600,122,'#565c6c')+`<line x1="0" y1="318" x2="600" y2="318" stroke="#ffd93b" stroke-width="4" stroke-dasharray="22 16"/>`+[0,1,2,3,4,5].map(i=>`<rect x="${275+i*12}" y="262" width="7" height="114" fill="#fff"/>`).join(''))+
+hs(6,bus(60,328,84)+R(160,332,100,30,'#fb8c00',6)+[0,1,2].map(i=>R(168+i*30,338,22,12,'#bfe9ff')).join('')+`<path d="M200 332 L215 312 M230 332 L215 312" stroke="#1d2b4f" stroke-width="3"/>`+R(358,296,6,42,'#6b7285')+`<circle cx="361" cy="290" r="15" fill="#1e63c8" ${S}/>`+tx(361,296,'M',16,'#fff'))+
+hs(7,car(20,274,'#e53935')+car(100,274,'#1e63c8')+car(190,274,'#fdd835')+car(380,274,'#ff8a3d')+car(450,274,'#8e44ad')+car(530,274,'#43a047'))+`</svg>`}
+const VC=[[1,'short, narrow streets','calles cortas y estrechas','Tip: look at the road 🛣️'],[2,'small buildings','edificios pequeños','Tip: houses 🏠'],[3,'small local shops','tiendas locales pequeñas','Tip: a shop 🛍️'],[4,'limited job opportunities','pocas oportunidades de trabajo','Tip: a farmer 🚜'],[5,'shared public services','servicios públicos compartidos','Tip: a health centre 🏥'],[6,'limited public transport','transporte público limitado','Tip: one bus 🚌'],[7,'very little traffic','muy poco tráfico','Tip: only one car 🚗']];
+const CC=[[1,'long, wide streets','calles largas y anchas','Tip: look at the road 🛣️'],[2,'large buildings','edificios grandes','Tip: skyscrapers 🏢'],[3,'shopping centres and big supermarkets','centros comerciales y supermercados','Tip: look for the sign 🏬'],[4,'many job opportunities','muchas oportunidades de trabajo','Tip: offices 💼'],[5,'public services','servicios públicos','Tip: a hospital 🏥'],[6,'different types of public transport','distintos tipos de transporte público','Tip: bus, tram and metro 🚌🚇'],[7,'a lot of traffic','mucho tráfico','Tip: cars 🚗🚕']];
+const POS={v:{1:[60,322],2:[75,235],3:[375,245],4:[470,170],5:[285,240],6:[485,285],7:[258,286]},c:{1:[560,345],2:[45,120],3:[322,196],4:[388,100],5:[476,185],6:[200,350],7:[165,296]}};
+const stars=[0,0,0],st=(m,a,b)=>m<=a?3:m<=b?2:1;
+function say(t){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='en-GB';u.rate=.85;speechSynthesis.speak(u)}catch(e){}}
+const hud=l=>$('#hud').innerHTML=['🏡 Village','🏙️ City','⏱️ Speed round'].map((t,i)=>`<span class="${i==l?'on':''}">${t} ${'⭐'.repeat(stars[i])}</span>`).join('');
+function start(){hud(-1);stars.fill(0);M.innerHTML=`<div class="card"><div class="q">Be an explorer! Find things in the village and in the city.</div><div class="es">¡Sé explorador! Encuentra cosas en el pueblo y en la ciudad.</div><div style="max-width:460px;margin:10px auto"><div class="pair"><div>${village()}</div><div>${city()}</div></div></div><button class="go" onclick="explore(0)">Start ▶️</button></div>`}
+function explore(l){hud(l);const v=l==0,C=v?VC:CC,Q=sh(C);let k=0,wr=0,hint=0;
+M.innerHTML=`<div class="card"><div class="clue"><div><div class="q" id="cq"></div><div class="es" id="ce"></div></div><button id="sp">🔊</button><button id="hb">💡 Hint</button></div><div class="fb" id="fb">Tap the picture!</div><div class="play" id="sc">${v?village():city()}</div></div>`;
+const nx=()=>{const c=Q[k];$('#cq').textContent='Find: '+c[1];$('#ce').textContent='('+c[2]+') · '+c[3];$('#fb').textContent='Tap the picture! 👆'};
+nx();$('#sp').onclick=()=>say(Q[k][1]);
+$('#hb').onclick=()=>{hint++;const e=$('#sc [data-h="'+Q[k][0]+'"]');e.classList.add('glow');setTimeout(()=>e.classList.remove('glow'),2500)};
+$('#sc').onclick=e=>{const g=e.target.closest('.hs');if(!g||k>=Q.length)return;
+ if(+g.dataset.h==Q[k][0]){const p=POS[v?'v':'c'][Q[k][0]];const s=$('#sc svg');s.insertAdjacentHTML('beforeend',`<circle cx="${p[0]}" cy="${p[1]}" r="15" fill="#2e9e4f" stroke="#fff" stroke-width="3"/><text x="${p[0]}" y="${p[1]+6}" font-size="18" font-weight="800" fill="#fff" text-anchor="middle" font-family="sans-serif">${Q[k][0]}</text>`);
+  $('#fb').textContent='🎉 Yes! '+Q[k][1]+' = '+Q[k][2];say(Q[k][1]);k++;
+  if(k==Q.length){stars[l]=st(wr+hint,2,5);hud(l);$('#cq').textContent='🏁 Level complete! '+'⭐'.repeat(stars[l]);$('#ce').textContent='¡Nivel completado!';$('#hb').remove();$('#sp').remove();$('#fb').innerHTML=`<button class="go" onclick="${l==0?'explore(1)':'speed()'}">Next ➡️</button>`}
+  else setTimeout(nx,1500)}
+ else{wr++;$('#fb').textContent='😮 Not here! Try again.';const s=$('#sc svg');s.classList.add('shake');setTimeout(()=>s.classList.remove('shake'),350)}}}
+const SQ=[['Millions of people can live here.','c'],['It is a rural area.','v'],['It is an urban area.','c'],['There is very little traffic.','v'],['There is a lot of traffic.','c'],['There are small local shops.','v'],['There are shopping centres and big supermarkets.','c'],['The streets are short and narrow.','v'],['There are many job opportunities.','c'],['Public transport is limited.','v'],['The buildings are large.','c'],['There are few inhabitants.','v']];
+function speed(){hud(2);const Q=sh(SQ).slice(0,8);let k=0,wr=0,t,tm;
+const nx=()=>{lock=0;M.innerHTML=`<div class="card"><div class="es">Question ${k+1}/${Q.length} · Where is this? (¿Dónde es esto?)</div><div class="q" style="min-height:64px">${Q[k][0]}</div><div class="tm"><i id="tb"></i></div><div class="pair"><button data-a="v">${village()}<b>🏡 Village</b></button><button data-a="c">${city()}<b>🏙️ City</b></button></div><div class="fb" id="fb"></div></div>`;
+ say(Q[k][0]);const b=$('#tb');b.style.transition='width 10s linear';requestAnimationFrame(()=>requestAnimationFrame(()=>b.style.width='0'));
+ tm=setTimeout(()=>ans(null),10000);M.querySelectorAll('.pair button').forEach(x=>x.onclick=()=>ans(x.dataset.a))};
+let lock=0;
+function ans(a){if(lock)return;lock=1;clearTimeout(tm);const ok=a==Q[k][1];if(!ok)wr++;
+ $('#fb').textContent=ok?'🎉 Correct!':(a?'😮 No! It is the ':'⏰ Time! It is the ')+(Q[k][1]=='v'?'VILLAGE':'CITY');
+ setTimeout(()=>{k++;k<Q.length?nx():end()},1400)}
+function end(){stars[2]=st(wr,1,3);hud(2);const T=stars.reduce((a,b)=>a+b,0);
+ M.innerHTML=`<div class="card"><div class="stars">${'⭐'.repeat(T)}</div><div class="q">🏆 ${T} / 9 stars</div><div class="es">${T>=8?'¡Eres un gran explorador!':'¡Buen trabajo! Inténtalo otra vez para conseguir más estrellas.'}</div><button class="go" style="margin-top:12px" onclick="start()">🔄 Play again</button></div>`}
+nx()}
+start();
+</script></body></html>
