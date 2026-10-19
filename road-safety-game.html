@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Road Safety Game</title>
+<style>
+:root{--bg:#dff3ff;--card:#fff;--ink:#1d2b4f;--sub:#5a6785;--ok:#2e9e4f;--bad:#e53935;--b:#1e63c8;--y:#ffd93b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14192b;--card:#202844;--ink:#f3f5ff;--sub:#b5bedb}}
+:root[data-theme="dark"]{--bg:#14192b;--card:#202844;--ink:#f3f5ff;--sub:#b5bedb}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Baloo 2","Comic Sans MS","Trebuchet MS",sans-serif;font-size:20px;line-height:1.25}
+.w{max-width:760px;margin:0 auto;padding:14px}
+h1{margin:6px 0 2px;text-align:center;font-size:clamp(30px,7vw,48px);color:var(--b)}
+.tag{text-align:center;color:var(--sub);margin:0 0 10px;font-size:16px}
+.bar{height:16px;background:rgba(0,0,0,.12);border-radius:99px;overflow:hidden;margin:6px 0}
+.bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.top{display:flex;justify-content:space-between;font-weight:800;font-size:18px}
+.card{background:var(--card);border-radius:26px;padding:18px;box-shadow:0 6px 0 rgba(0,0,0,.15);text-align:center;margin-top:8px}
+.vis{min-height:150px;display:flex;align-items:center;justify-content:center;margin-bottom:6px}
+.q{font-size:clamp(22px,5vw,30px);font-weight:800;margin:4px 0}
+.es{color:var(--sub);font-size:16px;margin-bottom:12px}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+button{font:inherit;font-weight:800;font-size:22px;color:var(--ink);background:var(--card);border:4px solid var(--b);border-radius:20px;padding:14px 10px;cursor:pointer;min-height:64px}
+button:hover:not(:disabled){background:var(--y);color:#222}
+button.ok{background:var(--ok)!important;color:#fff!important;border-color:var(--ok)}
+button.no{background:var(--bad)!important;color:#fff!important;border-color:var(--bad)}
+button:disabled{cursor:default}
+.fb{min-height:34px;font-weight:800;font-size:22px;margin-top:10px}
+.next{background:var(--b);color:#fff;margin-top:6px;padding:12px 30px}
+.tl{display:inline-flex;flex-direction:column;gap:8px;background:#2b2b2b;padding:12px;border-radius:22px}
+.tl i{width:44px;height:44px;border-radius:50%;background:#444}
+.man{background:#2b2b2b;border-radius:18px;padding:10px 24px;font-size:64px;color:#2ee59d}
+.tri{width:120px;height:106px;background:#e53935;clip-path:polygon(50% 0,100% 100%,0 100%);display:flex;align-items:flex-end;justify-content:center;padding-bottom:9px}
+.tri b{width:80px;height:68px;background:#fff;clip-path:polygon(50% 0,100% 100%,0 100%);display:flex;align-items:flex-end;justify-content:center;font-size:34px}
+.ci{width:116px;height:116px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:58px;position:relative}
+.bl{background:#1e63c8;color:#fff;font-size:84px}
+.rd{background:#fff;border:13px solid #e53935}
+.rd:after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,transparent 46%,#e53935 46%,#e53935 54%,transparent 54%)}
+.big{font-size:90px;line-height:1}
+.end h2{font-size:38px;margin:4px 0}
+.stars{font-size:54px;letter-spacing:6px}
+</style></head><body><div class="w">
+<h1>🚦 Road Safety Game</h1>
+<p class="tag">Choose the right answer! <span>(¡Elige la respuesta correcta!)</span></p>
+<div class="top"><span id="n"></span><span id="s"></span></div>
+<div class="bar"><i id="p"></i></div>
+<div class="card" id="c"></div>
+</div>
+<script>
+const tl=(r,y,g)=>`<div class="tl"><i style="background:${r?'#e53935':''}"></i><i style="background:${y?'#fdd835':''}"></i><i style="background:${g?'#43a047':''}"></i></div>`;
+const Q=[
+{v:tl(1,0,0),q:"The light is RED. What do you do?",e:"El semáforo está en rojo. ¿Qué haces?",o:["STOP ✋","GO 🏃","Be careful ⚠️"],a:0,x:"Red means STOP!"},
+{v:tl(0,1,0),q:"The light is YELLOW. What does it mean?",e:"El semáforo está en amarillo.",o:["STOP ✋","CAUTION ⚠️","GO 🏃"],a:1,x:"Yellow means CAUTION."},
+{v:tl(0,0,1),q:"The light is GREEN. What does it mean?",e:"El semáforo está en verde.",o:["CAUTION ⚠️","STOP ✋","GO 🏃"],a:2,x:"Green means GO!"},
+{v:'<div class="man">🚶</div>',q:"Pedestrian traffic lights help us…",e:"Los semáforos de peatones nos ayudan a…",o:["cross the road safely","drive faster","buy food"],a:0,x:"They allow pedestrians to cross the road safely."},
+{v:'<div class="big">🦓🚶</div>',q:"At a pedestrian crossing, which way do you look FIRST?",e:"En un paso de cebra, mira ¿hacia dónde PRIMERO?",o:["LEFT ⬅️","RIGHT ➡️","at my phone 📱"],a:0,x:"Look left first…"},
+{v:'<div class="big">⬅️ 👀 ➡️</div>',q:"…and THEN look…",e:"…y DESPUÉS mira…",o:["LEFT ⬅️","RIGHT ➡️","nowhere"],a:1,x:"…and then right, before you cross."},
+{v:'<div class="tri"><b>🏃</b></div>',q:"A RED TRIANGLE sign is a…",e:"Una señal de triángulo rojo es de…",o:["WARNING ⚠️","MANDATORY ✅","PROHIBITION 🚫"],a:0,x:"Red triangle = warning."},
+{v:'<div class="ci bl">↻</div>',q:"A BLUE CIRCLE sign means something…",e:"Una señal de círculo azul indica algo…",o:["WARNING ⚠️","MANDATORY ✅","PROHIBITION 🚫"],a:1,x:"Blue circle = mandatory."},
+{v:'<div class="ci rd">🚲</div>',q:"A RED CIRCLE sign means…",e:"Una señal de círculo rojo indica…",o:["WARNING ⚠️","MANDATORY ✅","PROHIBITION 🚫"],a:2,x:"Red circle = prohibition."},
+{v:'<div class="big">🌍</div>',q:"Which one is sustainable transport?",e:"¿Cuál es un transporte sostenible?",o:["🚲 Cycling","🚛 Big lorry","✈️ Private plane"],a:0,x:"Cycling has a low impact on the environment."},
+{v:'<div class="big">🚌 🚶 ⚡</div>',q:"Sustainable (eco-friendly) transport has a ___ impact on the environment.",e:"El transporte sostenible tiene un ___ impacto ambiental.",o:["low","high","huge"],a:0,x:"Low impact = good for the planet!"}
+];
+let i=0,sc=0,lock=false;
+const c=document.getElementById('c');
+function shuf(a){return a.map(v=>[Math.random(),v]).sort((x,y)=>x[0]-y[0]).map(x=>x[1])}
+function show(){
+  const q=Q[i];lock=false;
+  document.getElementById('n').textContent='Question '+(i+1)+' / '+Q.length;
+  document.getElementById('s').textContent='⭐ '+sc;
+  document.getElementById('p').style.width=(i/Q.length*100)+'%';
+  const idx=shuf(q.o.map((_,k)=>k));
+  c.innerHTML=`<div class="vis">${q.v}</div><div class="q">${q.q}</div><div class="es">${q.e}</div><div class="opts">${idx.map(k=>`<button data-k="${k}">${q.o[k]}</button>`).join('')}</div><div class="fb" id="fb"></div><div id="nx"></div>`;
+  c.querySelectorAll('.opts button').forEach(b=>b.onclick=()=>pick(b,q));
+}
+function pick(b,q){
+  if(lock)return;lock=true;
+  const ok=+b.dataset.k===q.a;
+  c.querySelectorAll('.opts button').forEach(x=>{x.disabled=true;if(+x.dataset.k===q.a)x.classList.add('ok')});
+  if(ok){sc++;document.getElementById('s').textContent='⭐ '+sc}else b.classList.add('no');
+  document.getElementById('fb').textContent=(ok?'🎉 Great job! ':'😮 Not quite. ')+q.x;
+  document.getElementById('nx').innerHTML=`<button class="next" id="go" style="color:#fff">${i<Q.length-1?'Next ➡️':'Finish 🏁'}</button>`;
+  document.getElementById('go').onclick=()=>{i++;i<Q.length?show():end()};
+}
+function end(){
+  document.getElementById('p').style.width='100%';
+  const st=sc>=Q.length-1?3:sc>=Q.length*0.7?2:1;
+  const m=['Keep practising! 💪 (¡Sigue practicando!)','Very good! 👏 (¡Muy bien!)','Road Safety Champion! 🏆 (¡Campeón de la seguridad vial!)'][st-1];
+  c.innerHTML=`<div class="end"><div class="stars">${'⭐'.repeat(st)}${'☆'.repeat(3-st)}</div><h2>${sc} / ${Q.length}</h2><div class="q">${m}</div><button class="next" id="re" style="color:#fff;margin-top:14px">Play again 🔄</button></div>`;
+  document.getElementById('re').onclick=()=>{i=0;sc=0;show()};
+}
+show();
+</script></body></html>
