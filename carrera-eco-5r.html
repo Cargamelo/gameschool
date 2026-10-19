@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Carrera Eco de las 5R</title>
+<style>
+:root{--bg:#e4f5df;--card:#fff;--ink:#1d2b4f;--sub:#5a6785;--ok:#2e9e4f;--bad:#e53935;--y:#ffd93b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14231a;--card:#1f3326;--ink:#f1f8f2;--sub:#b3c9b8}}
+:root[data-theme="dark"]{--bg:#14231a;--card:#1f3326;--ink:#f1f8f2;--sub:#b3c9b8}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Baloo 2","Comic Sans MS","Trebuchet MS",sans-serif;font-size:19px;line-height:1.2}
+.w{max-width:760px;margin:0 auto;padding:12px}
+h1{margin:4px 0;text-align:center;font-size:clamp(28px,7vw,46px);color:var(--ok)}
+.card{background:var(--card);border-radius:24px;padding:14px;text-align:center;box-shadow:0 6px 0 rgba(0,0,0,.15);margin-top:10px}
+button{font:inherit;font-weight:800;color:var(--ink);background:var(--card);border:4px solid var(--ok);border-radius:16px;padding:8px 14px;cursor:pointer;min-height:52px}
+button:hover:not(:disabled){filter:brightness(1.1)}button:disabled{opacity:.5;cursor:default}
+.go{background:var(--ok);color:#fff;font-size:22px;padding:12px 26px}
+.bd{display:grid;grid-template-columns:repeat(7,1fr);grid-template-rows:repeat(6,1fr);gap:5px;background:var(--card);padding:8px;border-radius:20px;box-shadow:0 6px 0 rgba(0,0,0,.15)}
+.sq{position:relative;aspect-ratio:1;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:clamp(14px,3.8vw,28px);background:#c8ecc0;color:#14361a;overflow:hidden}
+.sq:nth-child(even){background:#a9e0a0}
+.sq small{position:absolute;top:1px;left:4px;font-size:11px;font-weight:800;opacity:.7}
+.sq.fin{background:var(--y);color:#222}.sq.st{background:#fff;color:#222;border:3px dashed var(--ok)}
+.tk{position:absolute;bottom:1px;left:0;right:0;display:flex;justify-content:center;font-size:clamp(14px,3.8vw,26px)}
+.tk span{filter:drop-shadow(0 2px 0 #fff)}
+.rs{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin-top:8px}
+.rs button{color:#fff;border:0;font-size:22px;min-height:60px}.rs .y{color:#222}
+.sc{font-size:clamp(22px,5vw,30px);font-weight:800;margin:6px 0}
+.dice{display:inline-flex;width:84px;height:84px;border-radius:20px;background:#fff;color:#222;border:5px solid #1d2b4f;align-items:center;justify-content:center;font-size:52px;font-weight:800;margin:6px}
+.fb{font-weight:800;font-size:21px;margin:8px 0}.def{background:rgba(0,0,0,.07);border-radius:14px;padding:8px;font-size:17px;margin:6px 0}
+.dfs{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px;text-align:left}
+.dfs div{border-radius:16px;padding:8px 12px;color:#fff;font-size:16px}.dfs b{display:block;font-size:22px}
+.sub{color:var(--sub);font-size:16px}
+</style></head><body><div class="w"><h1>♻️ Carrera Eco de las 5R</h1><div id="bd"></div><div class="card" id="pn"></div></div>
+<script>
+const $=s=>document.querySelector(s),sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const sh=a=>a.map(v=>[Math.random(),v]).sort((x,y)=>x[0]-y[0]).map(x=>x[1]);
+const R=[{k:'Rechazar',e:'🚫',c:'#e53935',d:'Decir “no” a productos o compras innecesarias.'},{k:'Reducir',e:'📉',c:'#fb8c00',d:'Comprar menos, lo que implica botar menos.'},{k:'Reutilizar',e:'🔄',c:'#fdd835',d:'Darle nuevo uso a los productos.'},{k:'Reparar',e:'🔧',c:'#1e63c8',d:'Restaurar productos dañados para recuperar su funcionalidad.'},{k:'Reciclar',e:'♻️',c:'#43a047',d:'Los materiales se transforman en nuevos subproductos.'}];
+const SC=[
+['Te dan una bolsa de plástico para llevar solo un lápiz. Tú dices: «No, gracias».','🛍️',0],
+['En la tienda quieren venderte otro juguete igual que los que ya tienes. Dices que no lo necesitas.','🧸',0],
+['Te ofrecen un folleto de publicidad que no vas a leer. No lo coges.','📄',0],
+['Un amigo quiere regalarte una cosa que no vas a usar. Le dices que no, gracias.','🎁',0],
+['Compras solo la fruta que vas a comer esta semana para no tirar comida.','🍎',1],
+['Te sirves poca comida en el plato para no tirar nada.','🍽️',1],
+['Decides comprar menos juguetes para tener menos cosas que tirar.','🧸',1],
+['Compras menos cosas con envoltorio para tirar menos basura.','📦',1],
+['Usas un bote de cristal vacío como lapicero.','🫙',2],
+['Tu hermana pequeña se pone la ropa que a ti ya te queda pequeña.','👕',2],
+['Haces un disfraz con una caja de cartón.','📦',2],
+['Dibujas por la otra cara de un folio que ya habías usado.','📝',2],
+['A tu bici se le sale la cadena y la vuelves a poner en vez de comprar otra.','🚲',3],
+['Se te cae un botón del abrigo y lo coses.','🧥',3],
+['Se despega la suela de tu zapatilla y la pegas.','👟',3],
+['A tu juguete se le cae una rueda y se la colocas otra vez.','🚗',3],
+['Tiras la botella de plástico en el contenedor amarillo.','🧴',4],
+['Llevas los periódicos viejos al contenedor azul.','📰',4],
+['Echas el frasco de cristal en el contenedor verde.','🍾',4],
+['Tiras la lata vacía al contenedor amarillo para que se transforme en algo nuevo.','🥫',4]];
+const TM=[{n:'Ranas',e:'🐸'},{n:'Zorros',e:'🦊'},{n:'Pandas',e:'🐼'}];
+const DEC=['🌼','🌳','🌻','🍎','🐝','🌈','🌲','🦋','🍄','🌷'];
+let teams,t,dice,card,deck,phase,msg='';
+const COLS=7,ROWS=6,END=41;
+const pos=i=>{const r=Math.floor(i/COLS),c=r%2?COLS-1-i%COLS:i%COLS;return[ROWS-r,c+1]};
+function board(){$('#bd').innerHTML=`<div class="bd">${Array.from({length:END+1},(_,i)=>{const[r,c]=pos(i);return`<div class="sq ${i==0?'st':i==END?'fin':''}" style="grid-row:${r};grid-column:${c}"><small>${i==0?'':i}</small>${i==0?'🏁':i==END?'🏆':DEC[i%10]}<div class="tk">${teams.map(x=>x.p==i?`<span>${x.e}</span>`:'').join('')}</div></div>`}).join('')}</div>`}
+function defs(){return`<div class="dfs">${R.map(r=>`<div style="background:${r.c};${r.c=='#fdd835'?'color:#222':''}"><b>${r.e} ${r.k}</b>${r.d}</div>`).join('')}</div>`}
+function home(){teams=[];$('#bd').innerHTML='';phase='home';$('#pn').innerHTML=`<div class="sc">¡Aprende las 5R y llega a la meta! 🏆</div><div class="sub">Tira el dado, lee la situación y elige la R correcta. Si aciertas, avanzas.</div><div style="margin:10px 0">${defs()}</div><div class="sc" style="font-size:22px">¿Cuántos equipos juegan?</div>${[1,2,3].map(n=>`<button class="go" onclick="begin(${n})">${n} ${n==1?'equipo':'equipos'}</button>`).join(' ')}`}
+function begin(n){teams=TM.slice(0,n).map(x=>({...x,p:0}));t=0;deck=sh(SC);phase='roll';board();turn()}
+function turn(){phase='roll';const T=teams[t];$('#pn').innerHTML=`<div class="sc">Turno de ${T.e} ${T.n}</div><div class="dice" id="dc">🎲</div><br><button class="go" onclick="roll()">🎲 Tirar el dado</button> <button onclick="cheat()">📖 Chuleta</button><div id="ch"></div>`}
+function cheat(){const c=$('#ch');c.innerHTML=c.innerHTML?'':`<div style="margin-top:8px">${defs()}</div>`}
+async function roll(){if(phase!='roll')return;phase='rolling';const d=$('#dc');for(let i=0;i<10;i++){d.textContent=1+Math.floor(Math.random()*6);await sleep(80)}
+ dice=1+Math.floor(Math.random()*6);d.textContent=dice;await sleep(500);if(!deck.length)deck=sh(SC);card=deck.pop();ask()}
+function ask(){phase='ask';const T=teams[t];$('#pn').innerHTML=`<div class="sub">${T.e} ${T.n} · dado: <b>${dice}</b></div><div style="font-size:60px">${card[1]}</div><div class="sc">${card[0]}</div><button onclick="sp()">🔊 Escuchar</button><div class="sc" style="font-size:22px">¿Qué R es?</div><div class="rs">${R.map((r,i)=>`<button class="${r.c=='#fdd835'?'y':''}" style="background:${r.c}" onclick="ans(${i})">${r.e} ${r.k}</button>`).join('')}</div>`}
+function sp(){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(card[0]);u.lang='es-ES';u.rate=.9;speechSynthesis.speak(u)}catch(e){}}
+async function ans(i){if(phase!='ask')return;phase='res';const ok=i==card[2],r=R[card[2]],T=teams[t];
+ $('#pn').innerHTML=`<div style="font-size:60px">${ok?'🎉':'🤔'}</div><div class="fb" style="color:${ok?'var(--ok)':'var(--bad)'}">${ok?'¡Correcto! Avanzas '+dice+' casilla'+(dice>1?'s':'')+'.':'Casi… era '+r.k.toUpperCase()+'. Esta vez no avanzas.'}</div><div class="def"><b>${r.e} ${r.k}:</b> ${r.d}</div>`;
+ if(ok){for(let s=0;s<dice&&T.p<END;s++){await sleep(350);T.p++;board()}}
+ if(T.p>=END){fin();return}
+ $('#pn').insertAdjacentHTML('beforeend',`<button class="go" onclick="t=(t+1)%teams.length;turn()">Siguiente ➡️</button>`)}
+function fin(){phase='end';const T=teams[t];$('#pn').innerHTML=`<div style="font-size:70px">🏆</div><div class="sc">¡Gana ${T.e} ${T.n}!</div><div class="sub">¡Todos sois defensores del planeta! 🌍 Las 5R: Rechazar, Reducir, Reutilizar, Reparar y Reciclar.</div><button class="go" style="margin-top:10px" onclick="home()">🔄 Jugar otra vez</button>`}
+home();
+</script></body></html>
