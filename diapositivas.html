@@ -9,16 +9,15 @@ nav a,.back{display:inline-block;padding:10px 23px;border-radius:13px;background
 a:focus-visible{outline:3px solid #f6be30;outline-offset:3px}
 main{max-width:1600px;margin:auto;padding:22px 14px 50px}
 h1{text-align:center;font-size:clamp(1.6rem,4vw,2.8rem);margin:4px 0}p.intro,p.hint{text-align:center;color:#536584;margin:8px auto 20px}
-.viewport{overflow-x:auto;padding:5px 2px 16px}
-.slides{display:grid;grid-template-columns:repeat(2,minmax(385px,1fr));min-width:790px;gap:20px;align-items:start}
+.viewport{overflow-x:visible;padding:5px 2px 16px}
+.slides{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));min-width:0;gap:20px;align-items:start}
 figure{margin:0;padding:15px;border-radius:20px;background:#fff;border:1px solid #d9e5f3;box-shadow:0 7px 24px #17335a1c}
 h2{text-align:center;font-size:1.35rem;margin:0 0 14px}
 figure img{display:block;width:100%;height:auto;border:1px solid #e3edf7;border-radius:10px}
 figure>a{display:block;cursor:zoom-in}
 figcaption{text-align:center;margin-top:10px}figcaption a{font-weight:750;color:#124b9e}
 .bottom{text-align:center;margin:18px 0}
-@media(min-width:850px){.slides{min-width:0;grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:849px){.viewport{scroll-snap-type:x proximity}figure{scroll-snap-align:start}}
+@media(max-width:849px){.slides{grid-template-columns:minmax(0,1fr);gap:18px}.viewport{overflow-x:visible}figure{min-width:0;padding:12px}figure img{max-width:100%;height:auto}}
 @media print{nav,.bottom,.hint{display:none}.slides{min-width:0;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}figure{box-shadow:none}}
 
 /* Visor ampliado sobre la misma página */
@@ -38,10 +37,10 @@ figcaption{text-align:center;margin-top:10px}figcaption a{font-weight:750;color:
 <nav><a href="./index.html">🏠 MENÚ PRINCIPAL</a></nav>
 <main><h1>📑 Diapositivas de Science</h1>
 <p class="intro">Los dos esquemas enviados por el profe. Pulsa una imagen para verla más grande.</p>
-<div class="viewport" tabindex="0" aria-label="Desplaza horizontalmente para ver las dos diapositivas si no caben en pantalla."><div class="slides">
+<div class="viewport" tabindex="0" aria-label="Diapositivas: en pantallas pequeñas aparecen una debajo de otra."><div class="slides">
 <figure><h2>🏡 Buenos ciudadanos</h2><a href="./assets/buenos-ciudadanos.jpeg" class="zoom-trigger"><img src="./assets/buenos-ciudadanos.jpeg" width="1600" height="906" alt="Esquema Buenos ciudadanos: en casa, en el colegio y en la comunidad."></a><figcaption><a href="./assets/buenos-ciudadanos.jpeg" class="zoom-trigger">🔍 Ver a tamaño completo</a></figcaption></figure>
 <figure><h2>🏙️ Cities and Towns</h2><a href="./assets/cities-towns.jpeg" class="zoom-trigger"><img src="./assets/cities-towns.jpeg" width="1600" height="908" alt="Esquema Cities and Towns: características de las ciudades."></a><figcaption><a href="./assets/cities-towns.jpeg" class="zoom-trigger">🔍 Ver a tamaño completo</a></figcaption></figure>
-</div></div><p class="hint">En móvil, desliza hacia los lados para ver ambos esquemas.</p>
+</div></div><p class="hint">En móvil, desplázate hacia abajo para consultar las dos diapositivas.</p>
 <div class="bottom"><a class="back" href="./index.html">🏠 Volver al menú principal</a></div>
 </main>
 <dialog id="slide-viewer" class="slide-viewer" aria-labelledby="viewer-title">
