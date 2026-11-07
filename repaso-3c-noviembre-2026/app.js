@@ -88,29 +88,4 @@
   });
   document.getElementById('new-math').addEventListener('click',newRound);
   newRound();
-
-  const summary=[
-    '3.º C · CONTROLES DEL 10 Y 12 DE NOVIEMBRE DE 2026',
-    '',
-    'MARTES 10 · LENGUA: separar palabras en sílabas, clasificarlas por número de sílabas e identificar la sílaba tónica y las átonas.',
-    '',
-    'JUEVES 12 · MATEMÁTICAS: 2 sumas con llevadas y 3 restas con llevadas.',
-    '',
-    'Los cuatro Genially son juegos de repaso. El mensaje del profesor no los indica como deberes obligatorios. Se comenzarán a aprender las reglas de acentuación, pero no constan como contenido del control.',
-    '',
-    'Acceso: https://cargamelo.github.io/gameschool/3c/'
-  ].join('\n');
-  const copied=document.getElementById('copy-feedback');
-  document.getElementById('copy-summary').addEventListener('click',async()=>{
-    try{
-      if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(summary);}
-      else{
-        const area=document.createElement('textarea');area.value=summary;
-        area.style.cssText='position:fixed;left:-9999px;top:-9999px';document.body.appendChild(area);
-        area.select();const ok=document.execCommand('copy');area.remove();if(!ok)throw Error('Copy refused');
-      }
-      copied.textContent='Aviso copiado. Ya puedes pegarlo en WhatsApp.';
-    }catch{copied.textContent='El navegador no ha permitido copiarlo automáticamente. Puedes seleccionar el texto de esta página.';}
-  });
-  document.getElementById('print-summary').addEventListener('click',()=>window.print());
 })();
