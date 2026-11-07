@@ -315,3 +315,14 @@ body.game-open { overflow: hidden; }
   #game-dialog .modal-head button:active,
   #game-dialog .modal-head a:active { transform: none; }
 }
+
+/* Keep the return action explicit even on narrow devices. */
+#game-dialog .back-narrow { display: none; }
+@media(max-width:650px) {
+  #game-dialog .back-wide { display: none; }
+  #game-dialog .back-narrow { display: inline; }
+}
+@media(max-width:390px) {
+  #game-dialog .modal-head button { font-size: 12px; gap: 5px; padding: 8px 11px; }
+  #game-dialog .modal-head button span[aria-hidden] { font-size: 18px; line-height: 1; }
+}
