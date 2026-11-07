@@ -220,8 +220,8 @@ html { scroll-padding-top: 94px; }
 
 /* v9 · Mejor contraste y operación junto a su respuesta */
 .math-practice {
-  background:linear-gradient(180deg,#F2F6FB 0%,#F8FBFF 100%);
-  border-color:#D7E0EC;
+  background:linear-gradient(180deg,#EAF5FF 0%,#F1F8FF 100%);
+  border-color:#CADFF2;
 }
 .problems { gap:12px; }
 .problem {
@@ -230,8 +230,8 @@ html { scroll-padding-top: 94px; }
   justify-content:center;
   gap:clamp(10px,1.4vw,18px);
   padding:10px 12px;
-  background:#EEF3F9;
-  border:1px solid #D7E0EC;
+  background:#DFEEFC;
+  border:1px solid #C5D9EC;
   border-radius:12px;
 }
 .problem label {
