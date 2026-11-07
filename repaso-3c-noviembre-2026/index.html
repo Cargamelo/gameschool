@@ -39,12 +39,20 @@ dialog{border:0;padding:0;width:min(1020px,calc(100vw - 26px));max-width:none;bo
 <div class="closing"><h2>🌈 ¡Seguid así, campeones y campeonas!</h2><p>Lo importante es trabajar un poquito cada día, prestar atención en clase y confiar en todo lo que sois capaces de conseguir.</p></div>
 </main>
 <footer><div class="wrap"><span>3.º C · Material complementario de repaso · Noviembre de 2026</span><span>Los recursos externos se cargan solo al abrir cada juego. Esta web no solicita datos personales ni guarda respuestas.</span></div></footer>
-<dialog id="game-dialog" aria-labelledby="modal-title"><div class="modal-head"><h2 id="modal-title">Juego interactivo</h2><button id="close-game" type="button">✕ Cerrar</button></div><div class="embed"><iframe id="game-frame" title="Actividad interactiva de Genially" allow="fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div><div class="modal-foot"><span>Si el juego no aparece, ábrelo fuera de esta página.</span><a id="modal-link" href="https://view.genially.com/" target="_blank" rel="noopener noreferrer">Abrir en Genially ↗</a></div></dialog>
+<dialog id="game-dialog" aria-labelledby="modal-title">
+  <div class="modal-head">
+    <button id="close-game" type="button" aria-label="Volver a la lista de juegos"><span aria-hidden="true">←</span> Volver a juegos</button>
+    <h2 id="modal-title">Juego interactivo</h2>
+    <a id="modal-link" href="https://view.genially.com/" target="_blank" rel="noopener noreferrer">Abrir aparte ↗</a>
+  </div>
+  <div class="embed"><iframe id="game-frame" title="Actividad interactiva de Genially" allow="fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+  <div class="modal-foot">Si un juego no se muestra, selecciona «Abrir aparte» para jugar en Genially.</div>
+</dialog>
 <script>
 (function(){'use strict';
 var modal=document.getElementById('game-dialog'),frame=document.getElementById('game-frame'),lastButton=null;
-document.querySelectorAll('.launch').forEach(function(btn){btn.addEventListener('click',function(){var url=btn.dataset.url;if(!modal.showModal){window.open(url,'_blank','noopener,noreferrer');return;}lastButton=btn;document.getElementById('modal-title').textContent=btn.dataset.title;document.getElementById('modal-link').href=url;frame.title='Juego: '+btn.dataset.title;frame.src=url;modal.showModal();});});
-document.getElementById('close-game').addEventListener('click',function(){modal.close();});modal.addEventListener('click',function(e){if(e.target===modal)modal.close();});modal.addEventListener('close',function(){frame.removeAttribute('src');if(lastButton)lastButton.focus();});
+document.querySelectorAll('.launch').forEach(function(btn){btn.addEventListener('click',function(){var url=btn.dataset.url;if(!modal.showModal){window.open(url,'_blank','noopener,noreferrer');return;}lastButton=btn;document.getElementById('modal-title').textContent=btn.dataset.title;document.getElementById('modal-link').href=url;frame.title='Juego: '+btn.dataset.title;frame.src=url;modal.showModal();document.body.classList.add('game-open');});});
+document.getElementById('close-game').addEventListener('click',function(){modal.close();});modal.addEventListener('click',function(e){if(e.target===modal)modal.close();});modal.addEventListener('close',function(){frame.removeAttribute('src');document.body.classList.remove('game-open');if(lastButton)lastButton.focus({preventScroll:true});});
 var problems=[],host=document.getElementById('problems'),out=document.getElementById('result');function rand(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
 function sum(){for(var i=0;i<500;i++){var a=rand(145,590),b=rand(145,399),carry=a%10+b%10>=10||Math.floor(a/10)%10+Math.floor(b/10)%10>=10;if(a+b<1000&&carry)return {a:a,b:b,op:'+',answer:a+b};}return{a:268,b:157,op:'+',answer:425};}
 function sub(){for(var i=0;i<500;i++){var a=rand(450,900),b=rand(120,a-100),borrow=a%10<b%10||Math.floor(a/10)%10<Math.floor(b/10)%10;if(borrow)return{a:a,b:b,op:'−',answer:a-b};}return{a:532,b:178,op:'−',answer:354};}
