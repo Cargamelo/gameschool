@@ -166,3 +166,53 @@ html { scroll-padding-top: 94px; }
 @media print {
   .site-header { display:none!important; }
 }
+
+
+/* v8: navegación móvil completa, visible sin desplazamiento horizontal */
+@media (max-width:580px) {
+  html { scroll-padding-top: 117px; }
+  .site-header .header-content {
+    display: grid;
+    grid-template-columns: minmax(0,1fr);
+    gap: 6px;
+    min-height: 0;
+    padding-top: 7px;
+    padding-bottom: 9px;
+  }
+  .site-header .logo { justify-self: start; }
+  .site-header .logo-mark { width: 44px; height: 35px; font-size: 14px; border-radius: 10px; }
+  .site-header .logo-copy { display: block; }
+  .site-header .logo-copy strong { font-size: 13px; }
+  .site-header .logo-copy small { font-size: 10px; margin-top: 2px; }
+  .site-header .main-nav {
+    display: grid;
+    grid-template-columns: repeat(4,minmax(0,1fr));
+    gap: 5px;
+    width: 100%;
+    min-width: 0;
+    overflow: visible;
+    white-space: normal;
+    padding: 0;
+    scroll-snap-type: none;
+    touch-action: manipulation;
+  }
+  .site-header .main-nav a {
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    min-height: 39px;
+    flex: none;
+    padding: 8px 2px;
+    font-size: clamp(10px, 2.9vw, 12px);
+    line-height: 1.15;
+    letter-spacing: -.025em;
+    text-align: center;
+    white-space: nowrap;
+    border-radius: 10px;
+    scroll-snap-align: none;
+  }
+}
+@media (max-width:345px) {
+  .site-header .main-nav { gap: 4px; }
+  .site-header .main-nav a { font-size: 10px; padding: 8px 1px; }
+}
