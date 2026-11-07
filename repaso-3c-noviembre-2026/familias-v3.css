@@ -1,0 +1,121 @@
+/* Family-first refresh for 3º C; layered over existing styles */
+:root { --brand:#283f82;--brand-2:#5a50bf;--paper:#f7f9fd;--text:#1c2740;--cream:#fff7eb;--cyan:#e9f6ff; }
+html {scroll-padding-top:95px;}
+body { background:var(--paper);color:var(--text); }
+.wrap { width:min(1180px,calc(100% - 48px));}
+.nav-inner { min-height:72px; }
+.brand-icon { background:linear-gradient(145deg,#3953ac,#192d69);transform:none;box-shadow:0 6px 15px #263f892c; }
+.nav-links a:last-child {background:#263a78;}
+.hero { margin-top:24px; min-height:370px; padding:clamp(26px,4.1vw,53px); background:linear-gradient(124deg,#263b82 0%,#3f50a2 55%,#6661b9 100%);border-radius:29px;gap:24px; }
+.hero h1 {font-size:clamp(2.7rem,5vw,4.5rem);margin:19px 0 14px;}
+.hero h1 span {color:#ffe2a2;}
+.hero p {max-width:615px;font-size:clamp(1rem,1.55vw,1.1rem);}
+.hero .button { min-height:50px; }
+.dates {padding:19px 22px;transform:rotate(1.2deg);}
+section,#juegos,#practica { padding-top:60px; }
+.section-head {margin-bottom:22px;}
+.section-title {font-size:clamp(1.8rem,3.3vw,2.6rem);}
+.section-lead {max-width:760px;line-height:1.55;}
+/* Everything families need above the fold */
+.family-overview{padding:30px 32px 25px;margin-top:20px;border-radius:25px;background:#fff;box-shadow:0 11px 31px #1b34620e;border:1px solid #e2e9f5}
+.family-top{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:22px}
+.family-overview .section-title{font-size:clamp(1.55rem,2.7vw,2.2rem)}
+.family-overview .section-lead{margin:8px 0 0;max-width:690px}
+.family-tools{display:flex;gap:9px;flex-wrap:wrap}
+.family-tool{appearance:none;border:1px solid #d4ddef;background:#f7f9ff;color:#284078;padding:11px 14px;min-height:45px;border-radius:13px;font-weight:760;font-size:14px;touch-action:manipulation;transition:transform 130ms cubic-bezier(.23,1,.32,1),background-color 160ms}
+.family-tool:active{transform:scale(.975)}
+.family-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.family-fact{display:flex;align-items:center;gap:17px;border-radius:19px;padding:20px;background:#f6f2ff;border:1px solid #e7dffc;min-width:0}
+.family-fact:nth-child(2){background:#eaf8f1;border-color:#d5efdf}
+.fact-date{display:flex;flex-direction:column;justify-content:center;align-items:center;min-width:70px;height:78px;border-radius:14px;background:#6655c7;color:white;line-height:1}
+.fact-date span{font-size:11px;font-weight:860;letter-spacing:.1em}.fact-date strong{font-size:35px;margin-top:5px}
+.math-date{background:#16815d}
+.fact-subject{font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:900;color:#6b51be}
+.math-subject{color:#0a8060}
+.family-fact h3{font-size:clamp(16px,2vw,21px);margin:2px 0 5px;line-height:1.15;letter-spacing:-.025em}
+.family-fact p{margin:0;color:#555f77;font-size:14px;line-height:1.5}
+.family-clarification{border-left:4px solid #d5992e;background:var(--cream);border-radius:0 13px 13px 0;padding:13px 16px;margin:18px 0 0;color:#5d4c33;font-size:14px;line-height:1.55}
+.copy-feedback{min-height:0;color:#166e53;margin:9px 0 0;font-weight:760;font-size:13px}
+.copy-feedback:empty{display:none}
+/* Smaller, more coherent syllabus and media cards */
+.control{background:#fff;box-shadow:0 8px 23px #20355b0b;}
+.control.math{background:#fff;}
+.card-head{margin-bottom:12px;}
+.checklist{margin:16px 0;gap:12px}
+.info{padding:13px 15px}
+.game-card{box-shadow:0 9px 25px #1c34530e;border:1px solid #e1e8f2;border-radius:21px}
+.art.photo-art{position:relative;min-height:unset;aspect-ratio:1.9;overflow:hidden;display:block;background:linear-gradient(120deg,#e8edfc,#f4f5ff);}
+.art.photo-art::before{display:none}
+.art.photo-art::after{display:none}
+.photo-art img{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;transition:transform 240ms cubic-bezier(.23,1,.32,1)}
+.photo-art img.image-unavailable{display:none}
+.art-count{position:absolute;left:16px;top:14px;z-index:2;display:inline-block;background:#fffef4f0;color:#263b63;padding:7px 11px;border-radius:999px;font-size:12px;line-height:1;font-weight:850;box-shadow:0 3px 10px #142b3220}
+.game-main{padding:21px 23px 24px}
+.game-main h3{margin:7px 0;font-size:21px}
+.game-main p{font-size:14px;line-height:1.55;margin:0 0 17px}
+.game-actions .button{background:#334c98;min-height:47px}
+.game-actions a:not(.button){color:#394e8f}
+.game-card:nth-child(3) .game-actions .button,.game-card:nth-child(4) .game-actions .button{background:#6d42aa}
+@media (hover:hover) and (pointer:fine){.photo-art:hover img{transform:scale(1.035)}.family-tool:hover{background:#eaf0ff}.game-card:nth-child(3) .game-actions .button:hover,.game-card:nth-child(4) .game-actions .button:hover{background:#523184}}
+/* More usable syllable examples */
+.examples{padding-top:61px}
+.example-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
+.example-cell{border:1px solid #e0e8f1;border-radius:17px;padding:21px 18px;background:#fff;box-shadow:0 7px 20px #2335520a}
+.example-cell>span{display:block;font-weight:850;color:#5b6690;font-size:12px;margin-bottom:14px}
+.example-cell>strong{font-size:clamp(20px,2.25vw,28px);letter-spacing:-.04em;display:block;white-space:nowrap}
+.example-cell mark{background:#fff0b8;color:#202c47;padding:1px 4px;border-radius:6px}
+.example-cell p{font-size:13px;color:#596681;margin:10px 0 0}
+.example-legend{color:#52607d;font-size:14px;padding:7px 1px}
+.photo-credit{font-size:12px;color:#69758a;margin:0 0 24px;text-align:center}
+.photo-credit a{color:#485ba1}
+.practice{border-radius:26px}
+.closing{margin-top:43px}
+@media(max-width:900px){
+ .family-facts{grid-template-columns:1fr}
+ .example-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .dates{transform:none}
+}
+@media(max-width:650px){
+ .wrap{width:calc(100% - 28px)}
+ .nav-inner{min-height:65px}
+ .nav-links a:nth-child(1){display:none}
+ .nav-links a{padding:8px 7px}
+ .hero{padding:28px 22px;min-height:0;margin-top:14px;border-radius:23px}
+ .hero h1{font-size:clamp(2.5rem,11vw,3.75rem)}
+ .hero p{font-size:15px}
+ .hero-actions{display:grid;grid-template-columns:1fr}
+ .family-overview{margin-top:14px;padding:24px 18px 19px;border-radius:20px}
+ .family-top{gap:15px}
+ .family-fact{padding:15px 13px;gap:11px}
+ .fact-date{min-width:57px;height:67px;border-radius:12px}
+ .fact-date strong{font-size:29px}
+ .family-fact h3{font-size:18px}
+ .family-fact p{font-size:13px}
+ .family-tools{width:100%}.family-tool{flex:1}
+ .family-clarification{font-size:13px;padding:12px}
+ section,#juegos,#practica,.examples{padding-top:47px}
+ .game-main{padding:21px}
+ .art.photo-art{aspect-ratio:1.9}
+ .example-grid{gap:9px}
+ .example-cell{padding:16px 12px}
+ .example-cell>strong{font-size:clamp(19px,5.4vw,24px)}
+ .example-cell>span{font-size:11px}
+}
+@media(max-width:380px){
+ .nav-links a:nth-child(2){display:none}
+ .family-tool{font-size:12px;padding:10px}
+ .example-grid{grid-template-columns:1fr 1fr}
+ .example-cell{padding:14px 10px}
+ .example-cell>strong{font-size:18px}
+}
+@media(prefers-reduced-motion:reduce){.photo-art img{transition:none}.family-tool{transition:none}.family-tool:active,.photo-art:hover img{transform:none}}
+@media print{
+ nav,.hero-actions,.game-actions,.family-tools,.game-card,.photo-credit,.practice,.closing,footer,dialog{display:none!important}
+ body{background:white}
+ .hero{min-height:0;color:#fff!important}
+ .family-overview,.card,.example-cell{box-shadow:none;break-inside:avoid}
+ .family-overview{padding:15px;border:1px solid #ddd}
+ .family-facts{grid-template-columns:1fr 1fr}
+ .two-col{grid-template-columns:1fr 1fr}
+ .examples{padding-top:24px}
+}
