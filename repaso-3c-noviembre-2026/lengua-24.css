@@ -69,3 +69,20 @@
 @media(max-width:580px){.hero--language .hero-copy{padding:32px 26px}.hero--language h1{font-size:clamp(2.2rem,10vw,3.1rem)}.hero--language .hero-image{height:225px;min-height:225px}.visual-card-one{height:170px;top:12%;left:13%;width:48%;font-size:95px}.visual-card-two{right:4%;bottom:9%;min-height:85px;width:43%;font-size:23px}.visual-sticker{top:9%;right:5%;font-size:10px;padding:10px}.new-games-grid,.archive-content .games-grid{grid-template-columns:1fr}.game-cover--illustrated{aspect-ratio:2.05;min-height:180px}.review-routine{gap:12px}.review-routine .btn{margin-left:0;width:100%}.routine-badge{width:50px;height:50px;border-radius:14px}.archive-content{padding:18px}.archive-disclosure>summary{padding:17px}.archive-disclosure>summary strong{font-size:15px}.archive-disclosure>summary small{font-size:12px}}
 @media(prefers-reduced-motion:reduce){.archive-summary-arrow{transition:none}}
 @media print{.game-cover--illustrated .art-icon{filter:none}.archive-disclosure:not([open]) .archive-content{display:none}}
+
+/* V2: portadas fotorealistas, contenido reducido y acceso claro a los juegos. */
+.game-cover--photo{position:relative;aspect-ratio:1.5;min-height:0;background:#e8eaf4}
+.game-cover--photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:center;transition:transform .25s ease}
+.game-card:hover .game-cover--photo img{transform:scale(1.025)}
+.game-cover--photo .game-category{top:13px;left:13px;background:rgba(255,255,255,.96);backdrop-filter:blur(6px)}
+.new-games-grid .game-card{border-radius:22px}
+.new-games-grid .game-body{padding:20px}
+.new-games-grid .game-body h3{margin-bottom:9px}
+.new-games-grid .game-actions{margin-top:auto}
+.snapshot--single{margin-bottom:4px}
+.snapshot--single .snapshot-item{cursor:default}
+.hero--language .hero-image img{object-position:center}
+.games-section{padding-top:54px}
+@media(max-width:780px){.hero--language .hero-image{height:245px}}
+@media(max-width:580px){.game-cover--photo{aspect-ratio:1.7}.new-games-grid{gap:17px}.games-section{padding-top:39px}}
+@media(prefers-reduced-motion:reduce){.game-cover--photo img{transition:none}.game-card:hover .game-cover--photo img{transform:none}}
