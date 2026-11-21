@@ -86,3 +86,25 @@
 @media(max-width:780px){.hero--language .hero-image{height:245px}}
 @media(max-width:580px){.game-cover--photo{aspect-ratio:1.7}.new-games-grid{gap:17px}.games-section{padding-top:39px}}
 @media(prefers-reduced-motion:reduce){.game-cover--photo img{transition:none}.game-card:hover .game-cover--photo img{transform:none}}
+
+/* Matemáticas: cuatro retos nuevos. Misma estructura fotográfica del resto. */
+.math-games-section{padding-top:45px;border-top:1px solid #e3e7f0;margin-top:25px}
+.math-games-section .eyebrow{color:#157a65}
+.math-games-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+.math-games-grid .game-body h3{font-size:clamp(17px,1.6vw,21px)}
+.math-games-grid .game-body p{font-size:13px}
+.math-games-grid .btn-purple{background:#2f6cbd;border-color:#2f6cbd;color:#fff}
+.math-game-cover{isolation:isolate}
+.math-game-cover:after{content:"";position:absolute;inset:0;pointer-events:none;z-index:1;opacity:.5;mix-blend-mode:multiply}
+.math-game-cover .game-category{z-index:3}
+.math-game-cover .math-game-emblem{position:absolute;z-index:2;right:13px;bottom:11px;display:grid;place-items:center;min-width:62px;height:62px;padding:6px 10px;background:#fffffff0;border-radius:18px;box-shadow:0 5px 23px #101d3452;font-size:35px}
+.theme-super .math-game-cover:after{background:linear-gradient(125deg,#165bae88,#aa40c677)}
+.theme-story .math-game-cover:after{background:linear-gradient(125deg,#ad6d1980,#e5bd6b80)}
+.theme-sonic .math-game-cover:after{background:linear-gradient(125deg,#007ac488,#03bbcf77)}
+.theme-navidad .math-game-cover:after{background:linear-gradient(125deg,#07543999,#c32e3690)}
+.theme-super .math-game-emblem{background:#e5eaff}
+.theme-story .math-game-emblem{background:#fff2d9}
+.theme-sonic .math-game-emblem{background:#dffbff}
+.theme-navidad .math-game-emblem{background:#e7faed}
+@media(max-width:1100px){.math-games-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:580px){.math-games-grid{grid-template-columns:1fr}.math-games-section{padding-top:32px}.math-game-cover .math-game-emblem{min-width:53px;height:53px;font-size:29px}}
