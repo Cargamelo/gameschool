@@ -4,28 +4,71 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#e8f1fd">
-  <meta name="description" content="3.º C: prueba de Lengua el 24 de noviembre y evaluación de Matemáticas los días 26, 27 y 30 de noviembre de 2026. Nueve juegos de repaso.">
-  <meta property="og:title" content="3.º C · Juegos de Lengua y Matemáticas">
-  <meta property="og:description" content="Nueve juegos de repaso. Lengua: 24 de noviembre. Matemáticas: actividades de evaluación los días 26, 27 y 30 de noviembre.">
+  <meta name="description" content="3.º C: prueba de Lengua el 24 de noviembre y evaluación de Matemáticas los días 26, 27 y 30 de noviembre de 2026. Nueve juegos de repaso, esquemas de Science y seis vídeos.">
+  <meta property="og:title" content="3.º C · Repaso de Lengua, Matemáticas y Science">
+  <meta property="og:description" content="Nueve juegos de repaso y esquemas de Science con seis vídeos. Lengua: 24 de noviembre. Matemáticas: evaluación los días 26, 27 y 30 de noviembre.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://cargamelo.github.io/gameschool/repaso-3c-noviembre-2026/assets/aula-3c-hero.webp">
   <meta property="og:image:alt" content="Aula ilustrativa con libros y material escolar de 3.º C">
   <meta name="twitter:card" content="summary_large_image">
-  <title>3.º C · Juegos de Lengua y Matemáticas</title>
+  <title>3.º C · Repaso de Lengua, Matemáticas y Science</title>
   <link rel="icon" type="image/webp" sizes="192x192" href="./assets/puzzle-3c.webp?v=7">
   <link rel="shortcut icon" type="image/webp" href="./assets/puzzle-3c.webp?v=7">
   <link rel="stylesheet" href="./styles.css?v=10">
   <link rel="stylesheet" href="./lengua-24.css?v=4">
+
+  <style id="science-styles">
+    /* Science: scoped styles, plus subject-specific navigation colors. */
+    .site-header .main-nav a[href="#materiales"]{background:#fff4da;color:#694300;border-color:#e7ca85}
+    .site-header .main-nav a[href="#juegos"]{background:#fbe6f1;color:#842454;border-color:#efbfd8}
+    .site-header .main-nav a[href="#matematicas"]{background:#eeeaff;color:#49429a;border-color:#cfc8f3}
+    .site-header .main-nav a[href="#science"]{background:#dcf5e9;color:#075e43;border-color:#a4dfc6}
+    .site-header .main-nav a[href="#anteriores"]{background:#edf1f6;color:#42516a;border-color:#ccd5e1}
+    .site-header .main-nav a:focus-visible,.science-section a:focus-visible,.science-section button:focus-visible{outline:3px solid #2457a2;outline-offset:3px}
+    #juegos>.section-top .eyebrow{color:#a33775}
+    #matematicas>.section-top .eyebrow{color:#5652bc}
+    #anteriores>.section-top .eyebrow{color:#53647c}
+    .hero-actions .btn-science{background:#dff7e9;color:#075e43;border-color:#b8e7ce}
+    .science-section{--sc:#086647;--sc-border:#b9e2d0;--sc-muted:#365b4d;color:var(--ink)}
+    .science-section .eyebrow{color:var(--sc)}
+    .science-section .science-shell{background:linear-gradient(145deg,#f0fbf5,#e5f5ed);border:1px solid var(--sc-border);border-radius:24px;padding:clamp(16px,2.7vw,34px);box-shadow:var(--shadow)}
+    .science-section .science-notice{background:#fff;border:1px solid var(--sc-border);border-left:5px solid #138567;border-radius:14px;padding:16px 19px;line-height:1.65}
+    .science-section .science-notice p{margin:0;color:#28483d}
+    .science-section .science-notice p+p{margin-top:9px}
+    .science-section .science-kicker{display:block;color:var(--sc);font-size:12px;font-weight:850;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+    .science-section h3{margin:24px 0 6px;font-size:clamp(21px,2vw,28px)}
+    .science-section .science-intro{margin:0 0 16px;color:var(--sc-muted);line-height:1.55}
+    .science-section .timeline-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+    .science-section .timeline-card{background:#fff;border:1px solid var(--sc-border);border-top:5px solid #19835e;border-radius:16px;padding:20px;min-width:0}
+    .science-section .timeline-card h4{font-size:clamp(18px,1.7vw,22px);line-height:1.25;margin:8px 0}
+    .science-section .timeline-number{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:#dcf5e9;color:var(--sc);font-weight:900}
+    .science-section .timeline-start{font-size:14px;font-weight:750;color:var(--sc-muted);margin:0 0 14px;line-height:1.45}
+    .science-section .timeline-events{padding-left:20px;margin:0;line-height:1.55}
+    .science-section .timeline-events li+li{margin-top:8px}
+    .science-section .science-video-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+    .science-section .science-video{background:#fff;border:1px solid var(--sc-border);border-radius:16px;padding:17px;min-width:0;display:flex;flex-direction:column;gap:12px}
+    .science-section .video-heading{display:flex;gap:10px;align-items:center}
+    .science-section .video-icon{flex:none;display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:#dcf5e9;color:var(--sc);font-size:18px}
+    .science-section .video-heading h4{font-size:16px;margin:0;line-height:1.4}
+    .science-section .video-heading small{color:var(--sc-muted);display:block;font-size:12px}
+    .science-section .science-video a{align-self:flex-start;color:#075e43;background:#e7f7ef;border:1px solid #b9e2d0;text-decoration:none;padding:9px 13px;min-height:44px}
+    .science-section .science-video a:hover{background:#d2f0e1}
+    .science-section .science-source{color:var(--sc-muted);font-size:13px;margin:14px 0 0;line-height:1.5}
+    @media(max-width:900px){.science-section .timeline-grid,.science-section .science-video-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.site-header .main-nav a{padding-inline:10px}}
+    @media(max-width:580px){.site-header .main-nav{grid-template-columns:repeat(5,minmax(0,1fr))}.site-header .main-nav a{font-size:clamp(10px,2.7vw,12px);padding:6px 2px;white-space:normal;min-height:44px;overflow-wrap:anywhere}.science-section .timeline-grid{grid-template-columns:1fr}.science-section .science-video-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.science-section .science-shell{border-radius:18px}.science-section .timeline-card{padding:17px}.science-section .science-video{padding:12px}.science-section .video-heading{align-items:flex-start}.hero-actions .btn-science{grid-column:1/-1}}
+    @media(max-width:375px){html{scroll-padding-top:166px}.site-header .main-nav{grid-template-columns:repeat(6,minmax(0,1fr))}.site-header .main-nav a{grid-column:span 2;font-size:11px;min-height:39px}.site-header .main-nav a:nth-child(n+4){grid-column:span 3}.science-section .science-video-grid{grid-template-columns:1fr}}
+    @media print{.science-section .science-shell{background:#fff;box-shadow:none;border:none;padding:0}.science-section .timeline-grid{grid-template-columns:1fr}.science-section .timeline-card{break-inside:avoid}.science-section .science-video-grid{display:none}.science-section .science-notice{break-inside:avoid}}
+  </style>
 </head>
 <body>
 <a class="skip-link" href="#main">Saltar al contenido</a>
 <header class="site-header" id="inicio">
   <div class="container header-content">
     <a class="logo" href="#inicio" aria-label="Inicio del repaso de tercero C">
-      <span class="logo-mark" aria-hidden="true">3.º C</span><span class="logo-copy"><strong>Aprendemos juntos</strong><small>Lengua y Matemáticas · Noviembre 2026</small></span>
+      <span class="logo-mark" aria-hidden="true">3.º C</span><span class="logo-copy"><strong>Aprendemos juntos</strong><small>Repaso · Noviembre 2026</small></span>
     </a>
     <nav class="main-nav" aria-label="Navegación principal">
-      <a href="#materiales">Fechas</a><a href="#juegos">Lengua</a><a href="#matematicas">Matemáticas</a><a href="#anteriores">Otros repasos</a>
+      <a href="#materiales">Fechas</a><a href="#juegos">Lengua</a><a href="#matematicas">Matemáticas</a><a href="#science">Science</a><a href="#anteriores">Otros repasos</a>
     </nav>
   </div>
 </header>
@@ -33,12 +76,13 @@
   <div class="container">
     <section class="hero hero--language" aria-labelledby="hero-title">
       <div class="hero-copy">
-        <div class="hero-pretitle"><span class="hero-status-dot" aria-hidden="true"></span> 3.º C · LENGUA Y MATEMÁTICAS</div>
+        <div class="hero-pretitle"><span class="hero-status-dot" aria-hidden="true"></span> 3.º C · LENGUA, MATEMÁTICAS Y SCIENCE</div>
         <h1 id="hero-title">¡Aprende <span>jugando!</span></h1>
-        <p>Nueve juegos de Lengua y Matemáticas para practicar desde casa. Lengua: prueba el martes 24. Matemáticas: evaluación los días 26, 27 y 30 de noviembre.</p>
+        <p>Nueve juegos de Lengua y Matemáticas para practicar desde casa. Lengua: prueba el martes 24. Matemáticas: evaluación los días 26, 27 y 30 de noviembre. Science: esquemas y vídeos para repasar.</p>
         <div class="hero-actions">
           <a href="#juegos" class="btn btn-gold">Juegos de Lengua <span aria-hidden="true">↗</span></a>
           <a href="#matematicas" class="btn btn-light-outline">Juegos de Matemáticas</a>
+          <a href="#science" class="btn btn-science">Repaso de Science</a>
         </div>
       </div>
       <div class="hero-image"><img src="./assets/aula-3c-hero.webp" alt="Aula de tercero de Primaria con material escolar de Lengua y Matemáticas" width="1672" height="941" fetchpriority="high"></div>
@@ -187,6 +231,49 @@
       </div>
     </section>
 
+
+    <section class="section science-section" id="science" aria-labelledby="science-title">
+      <div class="section-top"><div><p class="eyebrow">Science · Material de clase</p><h2 id="science-title">Esquemas finales de Science + vídeos</h2></div><p>Repasa las etapas históricas con los esquemas del profesor y los vídeos que habéis visto en clase.</p></div>
+      <div class="science-shell">
+        <div class="science-notice">
+          <span class="science-kicker">Aviso de clase · 24 de noviembre de 2026</span>
+          <p>Los últimos esquemas de Science también deben estar en el cuaderno. El profesor ha compartido además el esquema de la línea del tiempo trabajado en clase y ha indicado que <strong>podría ser una de las preguntas del examen</strong>.</p>
+          <p><strong>Importante:</strong> no entra todo lo que aparece en los vídeos. Algunos contienen más información de la que se necesita para el examen; sirven para entender mejor lo trabajado en clase.</p>
+        </div>
+        <h3 id="timeline-title">Línea del tiempo</h3>
+        <p class="science-intro">Estudia las tres etapas en este orden. Los acontecimientos y fechas se recogen del esquema facilitado en clase.</p>
+        <ol class="timeline-grid" aria-labelledby="timeline-title">
+          <li class="timeline-card">
+            <span class="timeline-number" aria-hidden="true">1</span><h4>Edad Media</h4>
+            <p class="timeline-start">Inicio: después de la caída del Imperio romano.</p>
+            <ul class="timeline-events"><li>Musulmanes en la península ibérica.</li><li>Pandemia de la peste.</li><li>Castillos.</li><li>Construcción de relojes mecánicos.</li></ul>
+          </li>
+          <li class="timeline-card">
+            <span class="timeline-number" aria-hidden="true">2</span><h4>Edad Moderna</h4>
+            <p class="timeline-start">Inicio: descubrimiento de América (1492).</p>
+            <ul class="timeline-events"><li>Galileo inventa el telescopio.</li><li><strong>1698:</strong> la primera máquina de vapor.</li></ul>
+          </li>
+          <li class="timeline-card">
+            <span class="timeline-number" aria-hidden="true">3</span><h4>Edad Contemporánea</h4>
+            <p class="timeline-start">Inicio: Revolución francesa.</p>
+            <ul class="timeline-events"><li>Vacuna contra la viruela → Eduard Jenner.</li><li>Rayos X.</li><li><strong>1933:</strong> las mujeres pueden votar en España por primera vez.</li><li><strong>2014:</strong> Malala gana el Premio Nobel de la Paz.</li></ul>
+          </li>
+        </ol>
+        <p class="science-source">Fuente: «ESQUEMAS LÍNEA DEL TIEMPO», documento facilitado en clase. Se conserva el contenido del esquema escolar.</p>
+        <h3>Vídeos de repaso</h3>
+        <p class="science-intro">Los seis enlaces compartidos por el profesor, en el mismo orden. Se abren en YouTube en una nueva pestaña.</p>
+        <div class="science-video-grid">
+          <article class="science-video"><div class="video-heading"><span class="video-icon" aria-hidden="true">▶</span><div><small>Vídeo 1 de 6</small><h4>La Edad Media</h4></div></div><a class="btn" href="https://www.youtube.com/watch?v=3kQoewZgf-U" target="_blank" rel="noopener noreferrer" aria-label="Ver vídeo 1 en YouTube: La Edad Media">Ver en YouTube ↗</a></article>
+          <article class="science-video"><div class="video-heading"><span class="video-icon" aria-hidden="true">▶</span><div><small>Vídeo 2 de 6</small><h4>La Edad Moderna</h4></div></div><a class="btn" href="https://www.youtube.com/watch?v=tWQkKp0Kivk" target="_blank" rel="noopener noreferrer" aria-label="Ver vídeo 2 en YouTube: La Edad Moderna">Ver en YouTube ↗</a></article>
+          <article class="science-video"><div class="video-heading"><span class="video-icon" aria-hidden="true">▶</span><div><small>Vídeo 3 de 6</small><h4>Vídeo de clase 3</h4></div></div><a class="btn" href="https://www.youtube.com/watch?v=tDbUd4dOjvQ" target="_blank" rel="noopener noreferrer" aria-label="Ver vídeo 3 en YouTube: Vídeo de clase 3">Ver en YouTube ↗</a></article>
+          <article class="science-video"><div class="video-heading"><span class="video-icon" aria-hidden="true">▶</span><div><small>Vídeo 4 de 6</small><h4>Vídeo de clase 4</h4></div></div><a class="btn" href="https://www.youtube.com/watch?v=ENi237HQFe0" target="_blank" rel="noopener noreferrer" aria-label="Ver vídeo 4 en YouTube: Vídeo de clase 4">Ver en YouTube ↗</a></article>
+          <article class="science-video"><div class="video-heading"><span class="video-icon" aria-hidden="true">▶</span><div><small>Vídeo 5 de 6</small><h4>Vídeo de clase 5</h4></div></div><a class="btn" href="https://www.youtube.com/watch?v=O_Vn1wXKhV0" target="_blank" rel="noopener noreferrer" aria-label="Ver vídeo 5 en YouTube: Vídeo de clase 5">Ver en YouTube ↗</a></article>
+          <article class="science-video"><div class="video-heading"><span class="video-icon" aria-hidden="true">▶</span><div><small>Vídeo 6 de 6</small><h4>Vídeo de clase 6</h4></div></div><a class="btn" href="https://www.youtube.com/watch?v=RmMPC5g2i3w" target="_blank" rel="noopener noreferrer" aria-label="Ver vídeo 6 en YouTube: Vídeo de clase 6">Ver en YouTube ↗</a></article>
+        </div>
+        <p class="science-source">Los vídeos son recursos complementarios. No sustituyen los esquemas ni las indicaciones del profesor sobre el examen.</p>
+      </div>
+    </section>
+
     <section class="section past-section" id="anteriores" aria-labelledby="past-title">
       <div class="section-top"><div><p class="eyebrow">Para seguir practicando</p><h2 id="past-title">Otros juegos y ejercicios</h2></div></div>
       <details class="archive-disclosure">
@@ -230,7 +317,7 @@
 
     </div>
 </main>
-<footer class="site-footer"><div class="container footer-inner"><p>Material de apoyo de 3.º C · Noviembre de 2026. Juegos y avisos de Lengua y Matemáticas facilitados. No es una comunicación oficial del centro.</p><a href="../">Otros juegos de Science</a></div></footer>
+<footer class="site-footer"><div class="container footer-inner"><p>Material de apoyo de 3.º C · Noviembre de 2026. Juegos y avisos de Lengua, Matemáticas y Science facilitados. No es una comunicación oficial del centro.</p><a href="../">Otros juegos de Science</a></div></footer>
 <dialog id="game-viewer" aria-labelledby="viewer-title" aria-describedby="viewer-hint">
   <div class="viewer-header"><button type="button" id="back-to-games" class="viewer-back"><span aria-hidden="true">←</span><span class="back-long">Volver a juegos</span><span class="back-short">Volver</span></button><h2 id="viewer-title">Juego interactivo</h2><a id="viewer-external" href="https://view.genially.com/" target="_blank" rel="noopener noreferrer">Abrir aparte ↗</a></div>
   <div class="viewer-content"><iframe id="viewer-frame" title="Juego interactivo de repaso" allow="fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
