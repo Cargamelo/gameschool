@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#e8f1fd">
-  <meta name="description" content="3.º C: prueba de Lengua el 24 de noviembre y evaluación de Matemáticas los días 26, 27 y 30 de noviembre de 2026. Nueve juegos de repaso, esquemas de Science y seis vídeos.">
+  <meta name="description" content="3.º C: Science 25 de noviembre, Matemáticas 26, 27 y 30, Inglés 27 y Lengua 30. Juegos y materiales de repaso de noviembre de 2026.">
   <meta property="og:title" content="3.º C · Repaso de Lengua, Matemáticas y Science">
-  <meta property="og:description" content="Nueve juegos de repaso y esquemas de Science con seis vídeos. Lengua: 24 de noviembre. Matemáticas: evaluación los días 26, 27 y 30 de noviembre.">
+  <meta property="og:description" content="Science: 25 de noviembre a las 10:00. Matemáticas: 26, 27 y 30. Inglés: 27. Lengua: 30 a las 10:45. Materiales de repaso.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://cargamelo.github.io/gameschool/repaso-3c-noviembre-2026/assets/aula-3c-hero.webp">
   <meta property="og:image:alt" content="Aula ilustrativa con libros y material escolar de 3.º C">
@@ -59,6 +59,58 @@
     @media(max-width:375px){html{scroll-padding-top:166px}.site-header .main-nav{grid-template-columns:repeat(6,minmax(0,1fr))}.site-header .main-nav a{grid-column:span 2;font-size:11px;min-height:39px}.site-header .main-nav a:nth-child(n+4){grid-column:span 3}.science-section .science-video-grid{grid-template-columns:1fr}}
     @media print{.science-section .science-shell{background:#fff;box-shadow:none;border:none;padding:0}.science-section .timeline-grid{grid-template-columns:1fr}.science-section .timeline-card{break-inside:avoid}.science-section .science-video-grid{display:none}.science-section .science-notice{break-inside:avoid}}
   </style>
+
+  <style id="schedule-science-v2">
+    .snapshot--updated{display:block;padding:clamp(16px,2.6vw,32px);border-radius:24px}
+    .snapshot--updated .snapshot-heading{margin-bottom:18px}
+    .snapshot--updated .snapshot-heading p{font-size:14px;color:var(--muted);margin:5px 0 0}
+    .schedule-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .schedule-card{--tint:#f2f5fa;--accent:#33415a;--line:#d4dfed;background:var(--tint);border:1px solid var(--line);border-radius:18px;padding:clamp(15px,2vw,23px);min-width:0;display:flex;flex-direction:column;align-items:flex-start}
+    .schedule-science{--tint:#eefaf4;--accent:#086647;--line:#b6dfcd}
+    .schedule-math{--tint:#f2efff;--accent:#49429a;--line:#d4cdf5}
+    .schedule-english{--tint:#eaf3ff;--accent:#164f99;--line:#bdd6f5}
+    .schedule-language{--tint:#fff0f7;--accent:#842454;--line:#efc6dd}
+    .schedule-top{display:flex;align-items:center;gap:13px;margin-bottom:10px;width:100%}
+    .schedule-date{display:grid;place-items:center;align-content:center;background:var(--accent);color:white;min-width:58px;height:62px;border-radius:14px;line-height:1.1;flex:none}
+    .schedule-date small{font-size:10px;font-weight:850;letter-spacing:.09em}
+    .schedule-date strong{font-size:29px;line-height:1.1}
+    .schedule-subject{font-size:12px;color:var(--accent);font-weight:850;text-transform:uppercase;letter-spacing:.06em}
+    .schedule-top h3{font-size:clamp(17px,1.5vw,22px);line-height:1.22;margin:3px 0 0}
+    .schedule-card p{font-size:14px;line-height:1.55;margin:0 0 9px;color:#26354e}
+    .schedule-card .schedule-small{font-size:13px}
+    .schedule-link{margin-top:auto;padding-top:7px;font-weight:800;font-size:14px;color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+    .schedule-change{font-size:12px;font-weight:800;color:#704600;background:#fff4cc;border:1px solid #eed18c;padding:7px 10px;border-radius:9px;margin-bottom:9px}
+    .schedule-vocab{width:100%;background:#fff;border:1px solid var(--line);padding:9px 12px;border-radius:10px;margin-bottom:10px}
+    .schedule-vocab summary{cursor:pointer;color:var(--accent);font-size:14px;font-weight:800;min-height:28px}
+    .schedule-vocab[open] summary{margin-bottom:10px}
+    .science-section .science-shell{background:linear-gradient(155deg,#f8fcfa,#e6f4ed);padding:clamp(14px,2.6vw,34px)}
+    .science-section .timeline-grid{gap:18px}
+    .science-section .timeline-card{padding:0 0 20px;overflow:hidden;border-top:1px solid var(--sc-border);box-shadow:0 8px 20px #164b3510}
+    .science-section .timeline-card h4,.science-section .timeline-start{margin-left:18px;margin-right:18px}
+    .science-section .timeline-events{margin:0 18px;padding-left:20px}
+    .timeline-photo{margin:0 0 14px}
+    .timeline-photo-media{position:relative;aspect-ratio:16/10;background:#dcece4;overflow:hidden}
+    .timeline-photo-media img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 45%}
+    .science-section .timeline-card:nth-child(2) .timeline-photo-media img{object-fit:contain;background:#d5d3cd}
+    .science-section .timeline-photo .timeline-number{position:absolute;top:12px;left:12px;background:#075e43;color:#fff;box-shadow:0 2px 8px #0003}
+    .timeline-photo figcaption{font-size:11px;line-height:1.4;color:#53665b;padding:8px 14px;background:#f5f9f6}
+    .timeline-photo figcaption a{color:#365b4d;text-decoration:underline}
+    .science-section .science-video-grid{gap:18px}
+    .science-section .science-video{padding:0;gap:0;overflow:hidden;box-shadow:0 8px 20px #164b3510}
+    .science-section .science-video .video-cover{position:relative;display:block;align-self:stretch;width:100%;aspect-ratio:16/9;padding:0;border:0;border-radius:0;background:#173a30;overflow:hidden}
+    .video-cover img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .2s ease}
+    .video-cover:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#0000 60%,#0005);pointer-events:none}
+    .video-play{position:absolute;z-index:1;top:50%;left:50%;transform:translate(-50%,-50%);width:54px;height:54px;border-radius:50%;background:#fff;color:#075e43;display:grid;place-items:center;font-size:20px;padding-left:3px;box-shadow:0 5px 22px #0004}
+    .video-index{position:absolute;bottom:10px;left:10px;z-index:1;background:#11362ce8;color:#fff;border-radius:7px;padding:5px 9px;font-size:10px;letter-spacing:.06em;font-weight:850}
+    .video-meta{padding:14px 16px 17px}
+    .video-meta h4{font-size:16px;margin:0 0 5px;line-height:1.35}
+    .video-meta span{color:var(--sc);font-size:13px;font-weight:750}
+    @media(hover:hover){.video-cover:hover img{transform:scale(1.04)}.video-cover:hover .video-play{background:#e6f7ee}}
+    @media(max-width:700px){.schedule-grid{grid-template-columns:1fr}.schedule-card p{font-size:14px}}
+    @media(max-width:580px){.science-section .science-video-grid{grid-template-columns:1fr}.science-section .timeline-card{padding:0 0 18px}.snapshot--updated .snapshot-heading{margin-bottom:13px}}
+    @media(prefers-reduced-motion:reduce){.video-cover img{transition:none}.video-cover:hover img{transform:none}}
+    @media print{.schedule-card{break-inside:avoid}.schedule-grid{grid-template-columns:1fr 1fr}.timeline-photo-media{max-height:130px}}
+  </style>
 </head>
 <body>
 <a class="skip-link" href="#main">Saltar al contenido</a>
@@ -78,7 +130,7 @@
       <div class="hero-copy">
         <div class="hero-pretitle"><span class="hero-status-dot" aria-hidden="true"></span> 3.º C · LENGUA, MATEMÁTICAS Y SCIENCE</div>
         <h1 id="hero-title">¡Aprende <span>jugando!</span></h1>
-        <p>Nueve juegos de Lengua y Matemáticas para practicar desde casa. Lengua: prueba el martes 24. Matemáticas: evaluación los días 26, 27 y 30 de noviembre. Science: esquemas y vídeos para repasar.</p>
+        <p>Juegos de Lengua y Matemáticas, esquemas y vídeos de Science. Consulta las próximas evaluaciones de Science, Matemáticas, Inglés y Lengua y prepara cada prueba a tu ritmo.</p>
         <div class="hero-actions">
           <a href="#juegos" class="btn btn-gold">Juegos de Lengua <span aria-hidden="true">↗</span></a>
           <a href="#matematicas" class="btn btn-light-outline">Juegos de Matemáticas</a>
@@ -88,10 +140,14 @@
       <div class="hero-image"><img src="./assets/aula-3c-hero.webp" alt="Aula de tercero de Primaria con material escolar de Lengua y Matemáticas" width="1672" height="941" fetchpriority="high"></div>
     </section>
 
-    <section class="week-snapshot snapshot--dual" id="materiales" aria-label="Fechas de las próximas evaluaciones de Lengua y Matemáticas">
-      <div class="snapshot-heading"><span class="tiny-label">PRÓXIMAS EVALUACIONES</span><h2>Apunta las fechas</h2></div>
-      <div class="snapshot-item snapshot-item--language"><span class="calendar-chip pink"><small>MAR</small><strong>24</strong></span><span><strong>Lengua · Martes 24 de noviembre</strong><small>Prueba escrita SdA 2. Materiales en la carpeta COMPARTIDA del canal de Lengua.</small></span></div>
-      <div class="snapshot-item snapshot-item--math"><span class="calendar-chip math-calendar"><small>26–30</small><strong>NOV</strong></span><span><strong>Matemáticas · 26, 27 y 30 de noviembre</strong><small>Jueves, viernes y lunes. Evaluación SdA 2 mediante actividades y fichas repartidas en tres bloques, no un examen escrito único.</small></span></div>
+    <section class="week-snapshot snapshot--dual snapshot--updated" id="materiales" aria-labelledby="dates-heading">
+      <div class="snapshot-heading"><span class="tiny-label">PRÓXIMAS EVALUACIONES · NOVIEMBRE 2026</span><h2 id="dates-heading">Apunta las fechas</h2><p>Calendario actualizado según los avisos del lunes 23 de noviembre.</p></div>
+      <div class="schedule-grid">
+        <article class="schedule-card schedule-science"><div class="schedule-top"><span class="schedule-date"><small>MIÉ</small><strong>25</strong></span><div><span class="schedule-subject">Science</span><h3>Miércoles 25 · 10:00 h</h3></div></div><p><strong>Prueba escrita: <i>The Study of History</i>.</strong></p><p>Años, décadas, siglos y milenios; a. C. / d. C.; Prehistoria (Paleolítico, Neolítico y Edad de los Metales); Edad Antigua (Egipto, Grecia y Roma), Media, Moderna y Contemporánea.</p><a class="schedule-link" href="#science">Ver esquemas y vídeos →</a></article>
+        <article class="schedule-card schedule-math"><div class="schedule-top"><span class="schedule-date"><small>JUE</small><strong>26</strong></span><div><span class="schedule-subject">Matemáticas</span><h3>26, 27 y 30 de noviembre</h3></div></div><p><strong>Jueves 26: control de cálculo.</strong> 2 sumas y 3 restas, con la prueba de cada resta.</p><p><strong>Evaluación SdA 2 por fichas:</strong> jueves 26, viernes 27 y lunes 30. Sumas y restas, prueba de la resta, propiedades conmutativa y asociativa y resolución de problemas.</p><a class="schedule-link" href="#matematicas">Ver juegos de Matemáticas →</a></article>
+        <article class="schedule-card schedule-english"><div class="schedule-top"><span class="schedule-date"><small>VIE</small><strong>27</strong></span><div><span class="schedule-subject">Inglés</span><h3>Viernes 27 de noviembre</h3></div></div><p><strong>Examen de vocabulario SdA 3.</strong> Saber escribir de memoria:</p><details class="schedule-vocab"><summary>Ver los 18 términos del examen</summary><p><strong>Animales:</strong> hippo, whale, kangaroo, parrot, lion, dolphin, shark, jellyfish, polar bear, panda, tiger, penguin.</p><p><strong>Adjetivos:</strong> dangerous, colourful, frightening, intelligent, pretty, ugly.</p></details><p class="schedule-small">Hora no indicada. Continúa la evaluación de Matemáticas por fichas.</p></article>
+        <article class="schedule-card schedule-language"><div class="schedule-top"><span class="schedule-date"><small>LUN</small><strong>30</strong></span><div><span class="schedule-subject">Lengua</span><h3>Lunes 30 · 10:45 h</h3></div></div><span class="schedule-change">Cambio de fecha: ya no es el martes 24</span><p><strong>Examen escrito de SdA 2.</strong> Separación y clasificación de sílabas; sílaba tónica y átonas; reglas de acentuación y tildes; comprensión lectora.</p><p>Lectura oral individual: también se evalúa, sin fecha concreta. Último día previsto de Matemáticas por fichas.</p><a class="schedule-link" href="#juegos">Ver juegos de Lengua →</a></article>
+      </div>
     </section>
 
     <section class="section games-section" id="juegos" aria-labelledby="games-heading">
@@ -233,7 +289,7 @@
 
 
     <section class="section science-section" id="science" aria-labelledby="science-title">
-      <div class="section-top"><div><p class="eyebrow">Science · Material de clase</p><h2 id="science-title">Esquemas finales de Science + vídeos</h2></div><p>Repasa las etapas históricas con los esquemas del profesor y los vídeos que habéis visto en clase.</p></div>
+      <div class="section-top"><div><p class="eyebrow">Science · Material de clase</p><h2 id="science-title">Esquemas finales de Science + vídeos</h2></div><p>Prueba escrita: miércoles 25 de noviembre, 10:00 h. Repasa las etapas históricas con los esquemas y vídeos de clase.</p></div>
       <div class="science-shell">
         <div class="science-notice">
           <span class="science-kicker">Aviso de clase · 24 de noviembre de 2026</span>
@@ -244,31 +300,31 @@
         <p class="science-intro">Estudia las tres etapas en este orden. Los acontecimientos y fechas se recogen del esquema facilitado en clase.</p>
         <ol class="timeline-grid" aria-labelledby="timeline-title">
           <li class="timeline-card">
-            <span class="timeline-number" aria-hidden="true">1</span><h4>Edad Media</h4>
+            <figure class="timeline-photo"><div class="timeline-photo-media"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Alc%C3%A1zar,_Segovia,_Espa%C3%B1a,_2024-06-14,_DD_71.jpg/960px-Alc%C3%A1zar,_Segovia,_Espa%C3%B1a,_2024-06-14,_DD_71.jpg" alt="Fotografía del Alcázar de Segovia, fortaleza de origen medieval" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="timeline-number" aria-hidden="true">1</span></div><figcaption>Alcázar de Segovia<br><a href="https://commons.wikimedia.org/wiki/File:Alc%C3%A1zar,_Segovia,_Espa%C3%B1a,_2024-06-14,_DD_71.jpg" target="_blank" rel="noopener noreferrer">Diego Delso · Wikimedia Commons</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a></figcaption></figure><h4>Edad Media</h4>
             <p class="timeline-start">Inicio: después de la caída del Imperio romano.</p>
             <ul class="timeline-events"><li>Musulmanes en la península ibérica.</li><li>Pandemia de la peste.</li><li>Castillos.</li><li>Construcción de relojes mecánicos.</li></ul>
           </li>
           <li class="timeline-card">
-            <span class="timeline-number" aria-hidden="true">2</span><h4>Edad Moderna</h4>
+            <figure class="timeline-photo"><div class="timeline-photo-media"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d7/Galileo_galilei,_telescopi_del_1609-10_ca..JPG/960px-Galileo_galilei,_telescopi_del_1609-10_ca..JPG" alt="Telescopios de Galileo conservados en el Museo Galileo de Florencia" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="timeline-number" aria-hidden="true">2</span></div><figcaption>Telescopios de Galileo<br><a href="https://commons.wikimedia.org/wiki/File:Galileo_galilei,_telescopi_del_1609-10_ca..JPG" target="_blank" rel="noopener noreferrer">Sailko · Wikimedia Commons</a> · <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 3.0</a></figcaption></figure><h4>Edad Moderna</h4>
             <p class="timeline-start">Inicio: descubrimiento de América (1492).</p>
             <ul class="timeline-events"><li>Galileo inventa el telescopio.</li><li><strong>1698:</strong> la primera máquina de vapor.</li></ul>
           </li>
           <li class="timeline-card">
-            <span class="timeline-number" aria-hidden="true">3</span><h4>Edad Contemporánea</h4>
+            <figure class="timeline-photo"><div class="timeline-photo-media"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d7/Steam_Locomotive_-_54170354792.jpg/960px-Steam_Locomotive_-_54170354792.jpg" alt="Fotografía de una locomotora histórica de vapor, ejemplo de la industrialización contemporánea" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="timeline-number" aria-hidden="true">3</span></div><figcaption>Locomotora de vapor · industrialización<br><a href="https://commons.wikimedia.org/wiki/File:Steam_Locomotive_-_54170354792.jpg" target="_blank" rel="noopener noreferrer">Thad Zajdowicz · Wikimedia Commons</a> · <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer">CC0</a></figcaption></figure><h4>Edad Contemporánea</h4>
             <p class="timeline-start">Inicio: Revolución francesa.</p>
             <ul class="timeline-events"><li>Vacuna contra la viruela → Eduard Jenner.</li><li>Rayos X.</li><li><strong>1933:</strong> las mujeres pueden votar en España por primera vez.</li><li><strong>2014:</strong> Malala gana el Premio Nobel de la Paz.</li></ul>
           </li>
         </ol>
         <p class="science-source">Fuente: «ESQUEMAS LÍNEA DEL TIEMPO», documento facilitado en clase. Se conserva el contenido del esquema escolar.</p>
         <h3>Vídeos de repaso</h3>
-        <p class="science-intro">Los seis enlaces compartidos por el profesor, en el mismo orden. Se abren en YouTube en una nueva pestaña.</p>
+        <p class="science-intro">Los seis vídeos compartidos por el profesor, en el mismo orden. Pulsa su carátula original para abrir YouTube en una nueva pestaña.</p>
         <div class="science-video-grid">
-          <article class="science-video"><div class="video-heading"><span class="video-icon" aria-hidden="true">▶</span><div><small>Vídeo 1 de 6</small><h4>La Edad Media</h4></div></div><a class="btn" href="https://www.youtube.com/watch?v=3kQoewZgf-U" target="_blank" rel="noopener noreferrer" aria-label="Ver vídeo 1 en YouTube: La Edad Media">Ver en YouTube ↗</a></article>
-          <article class="science-video"><div class="video-heading"><span class="video-icon" aria-hidden="true">▶</span><div><small>Vídeo 2 de 6</small><h4>La Edad Moderna</h4></div></div><a class="btn" href="https://www.youtube.com/watch?v=tWQkKp0Kivk" target="_blank" rel="noopener noreferrer" aria-label="Ver vídeo 2 en YouTube: La Edad Moderna">Ver en YouTube ↗</a></article>
-          <article class="science-video"><div class="video-heading"><span class="video-icon" aria-hidden="true">▶</span><div><small>Vídeo 3 de 6</small><h4>Vídeo de clase 3</h4></div></div><a class="btn" href="https://www.youtube.com/watch?v=tDbUd4dOjvQ" target="_blank" rel="noopener noreferrer" aria-label="Ver vídeo 3 en YouTube: Vídeo de clase 3">Ver en YouTube ↗</a></article>
-          <article class="science-video"><div class="video-heading"><span class="video-icon" aria-hidden="true">▶</span><div><small>Vídeo 4 de 6</small><h4>Vídeo de clase 4</h4></div></div><a class="btn" href="https://www.youtube.com/watch?v=ENi237HQFe0" target="_blank" rel="noopener noreferrer" aria-label="Ver vídeo 4 en YouTube: Vídeo de clase 4">Ver en YouTube ↗</a></article>
-          <article class="science-video"><div class="video-heading"><span class="video-icon" aria-hidden="true">▶</span><div><small>Vídeo 5 de 6</small><h4>Vídeo de clase 5</h4></div></div><a class="btn" href="https://www.youtube.com/watch?v=O_Vn1wXKhV0" target="_blank" rel="noopener noreferrer" aria-label="Ver vídeo 5 en YouTube: Vídeo de clase 5">Ver en YouTube ↗</a></article>
-          <article class="science-video"><div class="video-heading"><span class="video-icon" aria-hidden="true">▶</span><div><small>Vídeo 6 de 6</small><h4>Vídeo de clase 6</h4></div></div><a class="btn" href="https://www.youtube.com/watch?v=RmMPC5g2i3w" target="_blank" rel="noopener noreferrer" aria-label="Ver vídeo 6 en YouTube: Vídeo de clase 6">Ver en YouTube ↗</a></article>
+          <article class="science-video"><a class="video-cover" href="https://www.youtube.com/watch?v=3kQoewZgf-U" target="_blank" rel="noopener noreferrer" aria-label="Reproducir vídeo 1 en YouTube"><img src="https://i.ytimg.com/vi/3kQoewZgf-U/hqdefault.jpg" alt="Carátula del vídeo 1 de Science" width="480" height="360" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="video-play" aria-hidden="true">▶</span><span class="video-index">VÍDEO 1 / 6</span></a><div class="video-meta"><h4>Vídeo de clase 1</h4><span>Ver en YouTube ↗</span></div></article>
+          <article class="science-video"><a class="video-cover" href="https://www.youtube.com/watch?v=tWQkKp0Kivk" target="_blank" rel="noopener noreferrer" aria-label="Reproducir vídeo 2 en YouTube"><img src="https://i.ytimg.com/vi/tWQkKp0Kivk/hqdefault.jpg" alt="Carátula del vídeo 2 de Science" width="480" height="360" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="video-play" aria-hidden="true">▶</span><span class="video-index">VÍDEO 2 / 6</span></a><div class="video-meta"><h4>La Edad Moderna</h4><span>Ver en YouTube ↗</span></div></article>
+          <article class="science-video"><a class="video-cover" href="https://www.youtube.com/watch?v=tDbUd4dOjvQ" target="_blank" rel="noopener noreferrer" aria-label="Reproducir vídeo 3 en YouTube"><img src="https://i.ytimg.com/vi/tDbUd4dOjvQ/hqdefault.jpg" alt="Carátula del vídeo 3 de Science" width="480" height="360" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="video-play" aria-hidden="true">▶</span><span class="video-index">VÍDEO 3 / 6</span></a><div class="video-meta"><h4>Vídeo de clase 3</h4><span>Ver en YouTube ↗</span></div></article>
+          <article class="science-video"><a class="video-cover" href="https://www.youtube.com/watch?v=ENi237HQFe0" target="_blank" rel="noopener noreferrer" aria-label="Reproducir vídeo 4 en YouTube"><img src="https://i.ytimg.com/vi/ENi237HQFe0/hqdefault.jpg" alt="Carátula del vídeo 4 de Science" width="480" height="360" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="video-play" aria-hidden="true">▶</span><span class="video-index">VÍDEO 4 / 6</span></a><div class="video-meta"><h4>Vídeo de clase 4</h4><span>Ver en YouTube ↗</span></div></article>
+          <article class="science-video"><a class="video-cover" href="https://www.youtube.com/watch?v=O_Vn1wXKhV0" target="_blank" rel="noopener noreferrer" aria-label="Reproducir vídeo 5 en YouTube"><img src="https://i.ytimg.com/vi/O_Vn1wXKhV0/hqdefault.jpg" alt="Carátula del vídeo 5 de Science" width="480" height="360" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="video-play" aria-hidden="true">▶</span><span class="video-index">VÍDEO 5 / 6</span></a><div class="video-meta"><h4>Vídeo de clase 5</h4><span>Ver en YouTube ↗</span></div></article>
+          <article class="science-video"><a class="video-cover" href="https://www.youtube.com/watch?v=RmMPC5g2i3w" target="_blank" rel="noopener noreferrer" aria-label="Reproducir vídeo 6 en YouTube"><img src="https://i.ytimg.com/vi/RmMPC5g2i3w/hqdefault.jpg" alt="Carátula del vídeo 6 de Science" width="480" height="360" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="video-play" aria-hidden="true">▶</span><span class="video-index">VÍDEO 6 / 6</span></a><div class="video-meta"><h4>Vídeo de clase 6</h4><span>Ver en YouTube ↗</span></div></article>
         </div>
         <p class="science-source">Los vídeos son recursos complementarios. No sustituyen los esquemas ni las indicaciones del profesor sobre el examen.</p>
       </div>
